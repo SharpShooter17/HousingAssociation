@@ -1,47 +1,43 @@
 package pl.dmcs.bujazdowski.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-import pl.dmcs.bujazdowski.domain.AppUser;
+import pl.dmcs.bujazdowski.domain.User;
+import pl.dmcs.bujazdowski.repository.UserRepository;
+import pl.dmcs.bujazdowski.service.AuthenticationService;
 
 import javax.faces.bean.RequestScoped;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestScoped
 public class AppUserController {
 
-    private AppUser appUser = new AppUser();
+    private final AuthenticationService authenticationService;
+    private final UserRepository userRepository;
+
+    public AppUserController(AuthenticationService authenticationService,
+                             UserRepository userRepository) {
+        this.authenticationService = authenticationService;
+        this.userRepository = userRepository;
+    }
 
     @RequestMapping(value = "/appUsers")
-    public ModelAndView showAppUsers() {
-
-        appUser.setFirstName("Bartosz");
-        appUser.setLastName("Ujazdowski");
-        appUser.setEmail("buja@wp.pl");
-        appUser.setTelephone("123456789");
-
-        return new ModelAndView("appUser", "appUser", new AppUser());
+    public String showAppUsers(Model model) {
+        model.addAttribute("newUser", new User());
+        model.addAttribute("users", new ArrayList<>(userRepository.findAllUsers()));
+        return "appUser";
     }
 
     @RequestMapping(value = "/addAppUser", method = RequestMethod.POST)
-    public String addAppUser(@ModelAttribute("appUser") AppUser appUser) {
-
-        System.out.println("First Name: " + appUser.getFirstName() +
-                " Last Name: " + appUser.getLastName() + " Tel.: " +
-                appUser.getTelephone() + " Email: " + appUser.getEmail());
-
+    public String addAppUser(@ModelAttribute("user") User user) {
+        authenticationService.registration(user);
         return "redirect:appUsers";
     }
 
-    public AppUser getAppUser() {
-        return appUser;
-    }
-
-    public void setAppUser(AppUser appUser) {
-        this.appUser = appUser;
-    }
 }
 
