@@ -2,21 +2,41 @@ package pl.dmcs.bujazdowski.domain;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
 
+@Entity
+@Table(name = "USER_T")
 public class User {
 
     private final static int daysToTokenExpiration = 7;
 
+    @Column(name = "FIRST_NAME", nullable = false)
     private String firstName;
+
+    @Column(name = "LAST_NAME", nullable = false)
     private String lastName;
+
+    @Column(name = "EMAIL", nullable = false)
     private String email;
+
+    @Column(name = "TELEPHONE", nullable = false)
     private String telephone;
+
+    @Column(name = "ENABLED", nullable = false)
     private boolean enabled;
+
+    @Column(name = "TOKEN_EXPIRATION_DATE")
     private LocalDate tokenExpirationDate;
+
+    @Column(name = "TOKEN")
     private String token;
+
+    @Column(name = "PASSWORD")
     private String hashedPassword;
 
     public void enable() {

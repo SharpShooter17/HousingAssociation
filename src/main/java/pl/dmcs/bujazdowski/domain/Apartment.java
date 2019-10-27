@@ -1,12 +1,24 @@
 package pl.dmcs.bujazdowski.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Apartment {
+@Entity
+@Table(name = "APARTMENT_T")
+public class Apartment
+        extends BaseEntity {
 
+    @Column(name = "BLOCK_ID", nullable = false)
+    private Block block;
+
+    @Column(name = "NUMBER", nullable = false)
     private Short number;
-    private Set<Occupant> occupants = new HashSet<>();
+
+    private Set<User> occupants = new HashSet<>();
+
     private Set<Bill> bills = new HashSet<>();
 
 }

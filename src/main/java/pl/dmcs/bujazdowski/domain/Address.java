@@ -1,12 +1,25 @@
 package pl.dmcs.bujazdowski.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Objects;
 
-public class Address {
+@Entity
+@Table(name = "ADDRESS_T")
+public class Address
+        extends BaseEntity {
 
+    @Column(name = "ZIP_CODE", nullable = false)
     private String zipCode;
+
+    @Column(name = "STREET", nullable = false)
     private String street;
+
+    @Column(name = "NUMBER", nullable = false)
     private String number;
+
+    @Column(name = "CITY", nullable = false)
     private String city;
 
     public Address(String zipCode, String street, String number, String city) {
