@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "USER_T")
-public class User {
+public class User extends BaseEntity {
 
     private final static int daysToTokenExpiration = 7;
 

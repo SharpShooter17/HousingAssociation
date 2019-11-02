@@ -59,10 +59,10 @@
                 <td colspan="4"> No Users Available</td>
             </tr>
             <tr th:each="user : ${users}">
-                <td><span th:text="${user.firstName}"></span></td>
-                <td><span th:text="${user.lastName}"></span></td>
-                <td><span th:text="${user.email}"></span></td>
-                <td><span th:text="${user.telephone}"></span></td>
+                <td th:text="${user.firstName}"/>
+                <td th:text="${user.lastName}"/>
+                <td th:text="${user.email}"/>
+                <td th:text="${user.telephone}"/>
             </tr>
             </tbody>
         </table>

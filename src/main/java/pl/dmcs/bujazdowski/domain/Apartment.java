@@ -1,8 +1,6 @@
 package pl.dmcs.bujazdowski.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,14 +9,21 @@ import java.util.Set;
 public class Apartment
         extends BaseEntity {
 
-    @Column(name = "BLOCK_ID", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "BLOCK_ID", referencedColumnName = "ID", nullable = false)
     private Block block;
 
     @Column(name = "NUMBER", nullable = false)
     private Short number;
 
+    @ManyToMany
+    @JoinTable(
+            name = "APARTMENT_OCCUPANT_T",
+            joinColumns = @JoinColumn(name = "APARTMENT_ID"),
+            inverseJoinColumns = @JoinColumn(name = "OCCUPANT_ID"))
     private Set<User> occupants = new HashSet<>();
 
+    @OneToMany(mappedBy = "apartment")
     private Set<Bill> bills = new HashSet<>();
 
 }

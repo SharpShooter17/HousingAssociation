@@ -1,8 +1,6 @@
 package pl.dmcs.bujazdowski.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Currency;
 
@@ -11,6 +9,7 @@ import java.util.Currency;
 public class Bill
         extends BaseEntity {
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "TYPE", nullable = false)
     private BillingType type;
 
@@ -19,5 +18,9 @@ public class Bill
 
     @Column(name = "AMOUNT", nullable = false)
     private Currency amount;
+
+    @ManyToOne
+    @JoinColumn(name = "APARTMENT_ID", referencedColumnName = "ID", nullable = false)
+    private Apartment apartment;
 
 }

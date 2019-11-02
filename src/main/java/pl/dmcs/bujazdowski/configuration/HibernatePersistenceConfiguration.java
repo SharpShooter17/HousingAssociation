@@ -25,9 +25,9 @@ public class HibernatePersistenceConfiguration {
     public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/ppe?characterEncoding=utf-8");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/spring?characterEncoding=utf-8");
         dataSource.setUsername("postgres");
-        dataSource.setPassword("");
+        dataSource.setPassword("root");
 
         return dataSource;
     }
@@ -37,7 +37,7 @@ public class HibernatePersistenceConfiguration {
         properties.put("hibernate.show_sql", "true");
         properties.put("hibernate.hbm2ddl.auto", "update");
         properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
-        properties.put("hibernate.default_schema", "spring");
+        properties.put("hibernate.default_schema", "public");
         return properties;
     }
 
