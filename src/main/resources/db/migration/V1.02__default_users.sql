@@ -1,0 +1,2 @@
+INSERT INTO user_t (id, email, enabled, first_name, password, last_name, telephone, token, token_expiration_date)
+VALUES (1, 'admin@example.com', true, 'Admin', null, 'Administrator', '0123456789', 'token', '2050-01-01');

@@ -5,13 +5,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import pl.dmcs.bujazdowski.dao.UserRepository;
 import pl.dmcs.bujazdowski.domain.User;
-import pl.dmcs.bujazdowski.repository.UserRepository;
 import pl.dmcs.bujazdowski.service.AuthenticationService;
 
 import javax.faces.bean.RequestScoped;
-import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestScoped
@@ -29,7 +27,7 @@ public class AppUserController {
     @RequestMapping(value = "/appUsers")
     public String showAppUsers(Model model) {
         model.addAttribute("newUser", new User());
-        model.addAttribute("users", new ArrayList<>(userRepository.findAllUsers()));
+        model.addAttribute("users", userRepository.findAll());
         return "appUser";
     }
 

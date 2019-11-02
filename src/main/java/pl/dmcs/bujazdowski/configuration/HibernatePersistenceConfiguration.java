@@ -1,8 +1,12 @@
 package pl.dmcs.bujazdowski.configuration;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.flywaydb.core.Flyway;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.context.annotation.Primary;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -21,6 +25,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class HibernatePersistenceConfiguration {
 
+    @Primary
     @Bean
     public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
@@ -41,6 +46,7 @@ public class HibernatePersistenceConfiguration {
         return properties;
     }
 
+    @DependsOn("flyway")
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
@@ -54,7 +60,7 @@ public class HibernatePersistenceConfiguration {
     }
 
     @Bean
-    public PlatformTransactionManager platformTransactionManager(EntityManagerFactory emf) {
+    public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
         JpaTransactionManager jpaTransactionManager = new JpaTransactionManager();
         jpaTransactionManager.setEntityManagerFactory(emf);
         return jpaTransactionManager;
@@ -63,5 +69,16 @@ public class HibernatePersistenceConfiguration {
     @Bean
     public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
         return new PersistenceExceptionTranslationPostProcessor();
+    }
+
+    @Bean(initMethod = "migrate")
+    public Flyway flyway(@Autowired DataSource dataSource) {
+        return Flyway.configure()
+                .dataSource(dataSource)
+                .encoding("UTF-8")
+                .locations("classpath:db/migration")
+                .baselineOnMigrate(true)
+                .installedBy("Bartosz Ujazdowski")
+                .load();
     }
 }

@@ -1,29 +1,34 @@
 package pl.dmcs.bujazdowski.domain;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(name = "USER_T")
-public class User extends BaseEntity {
+public class User extends BaseEntity implements UserDetails {
 
     private final static int daysToTokenExpiration = 7;
 
+    @NotBlank
     @Column(name = "FIRST_NAME", nullable = false)
     private String firstName;
 
+    @NotBlank
     @Column(name = "LAST_NAME", nullable = false)
     private String lastName;
 
+    @Email(message = "Email is not valid!")
     @Column(name = "EMAIL", nullable = false)
     private String email;
 
+    @NotBlank
     @Column(name = "TELEPHONE", nullable = false)
     private String telephone;
 
@@ -38,6 +43,17 @@ public class User extends BaseEntity {
 
     @Column(name = "PASSWORD")
     private String hashedPassword;
+
+    @ManyToMany
+    @JoinTable(
+            name = "USER_ROLE_T",
+            joinColumns = @JoinColumn(name = "USER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
+    private Set<Role> roles = new HashSet<>();
+
+    public void addRole(Role role) {
+        roles.add(role);
+    }
 
     public void enable() {
         this.enabled = true;
@@ -85,7 +101,7 @@ public class User extends BaseEntity {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email.toLowerCase();
     }
 
     public String getTelephone() {
@@ -94,6 +110,36 @@ public class User extends BaseEntity {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return new HashSet<>();
+    }
+
+    @Override
+    public String getPassword() {
+        return this.hashedPassword;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return this.isEnabled();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
     }
 
     public boolean isEnabled() {
