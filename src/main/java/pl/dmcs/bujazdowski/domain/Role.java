@@ -1,11 +1,13 @@
 package pl.dmcs.bujazdowski.domain;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "ROLE_T")
-public class Role extends BaseEntity {
+public class Role extends BaseEntity implements GrantedAuthority {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "ROLE_TYPE")
@@ -30,5 +32,10 @@ public class Role extends BaseEntity {
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), name);
+    }
+
+    @Override
+    public String getAuthority() {
+        return this.name.name();
     }
 }

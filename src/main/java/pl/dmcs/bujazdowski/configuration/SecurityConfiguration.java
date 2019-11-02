@@ -7,19 +7,20 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import pl.dmcs.bujazdowski.service.AuthenticationService;
+import pl.dmcs.bujazdowski.domain.RoleType;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private final AuthenticationService authenticationService;
+    private final UserDetailsService userDetailsService;
 
     @Autowired
-    public SecurityConfiguration(AuthenticationService authenticationService) {
-        this.authenticationService = authenticationService;
+    public SecurityConfiguration(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
     }
 
     @Bean
@@ -29,7 +30,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(authenticationService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Override
@@ -37,21 +38,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/anonymous*").anonymous()
-                .antMatchers("/login*").permitAll()
+                .antMatchers("/admin/**").hasRole(RoleType.ADMINISTRATOR.name())
+                .antMatchers("/login*", "/activate/**", "/activate-account*", "/resources/**", "/perform_login*").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login.html")
                 .loginProcessingUrl("/perform_login")
+                .usernameParameter("email")
+                .passwordParameter("password")
                 .defaultSuccessUrl("/homepage.html", true)
-                //.failureUrl("/login.html?error=true")
+                .failureUrl("/login.html?error=true")
 //                .failureHandler(authenticationFailureHandler())
                 .and()
                 .logout()
                 .logoutUrl("/perform_logout")
-                .deleteCookies("JSESSIONID");
+                .deleteCookies("JSESSIONID")
+                .logoutSuccessUrl("/login.html");
 //                .logoutSuccessHandler(logoutSuccessHandler());
     }
 

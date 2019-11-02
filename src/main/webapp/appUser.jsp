@@ -3,8 +3,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<html xmlns="http://www.w3.org/1999/xhtml"
->
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>App user page</title>
 </head>
@@ -49,9 +48,11 @@
         <table class="striped centered responsive-table">
             <thead>
             <tr>
-                <th>Name</th>
-                <th>Item Name</th>
-                <th>Item Price</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Telephone</th>
+                <th>Is enabled</th>
             </tr>
             </thead>
 
@@ -65,6 +66,7 @@
                     <td>${user.lastName}</td>
                     <td>${user.email}</td>
                     <td>${user.telephone}</td>
+                    <td>${user.isEnabled()}</td>
                 </tr>
             </c:forEach>
             </tbody>

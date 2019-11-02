@@ -9,11 +9,11 @@ import java.util.Set;
 public class Block
         extends BaseEntity {
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ADDRESS_ID", referencedColumnName = "ID", nullable = false)
     private Address address;
 
-    @OneToMany(mappedBy = "block")
+    @OneToMany(mappedBy = "block", fetch = FetchType.EAGER)
     private Set<Apartment> apartments = new HashSet<>();
 
 }

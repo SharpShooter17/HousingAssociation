@@ -2,7 +2,8 @@ package pl.dmcs.bujazdowski.domain;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import pl.dmcs.bujazdowski.exception.InvalidTokenException;
+import pl.dmcs.bujazdowski.exception.TokenExpiredException;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -44,7 +45,7 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "PASSWORD")
     private String hashedPassword;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "USER_ROLE_T",
             joinColumns = @JoinColumn(name = "USER_ID"),
@@ -68,8 +69,22 @@ public class User extends BaseEntity implements UserDetails {
         this.tokenExpirationDate = LocalDate.now().plusDays(daysToTokenExpiration);
     }
 
-    public void newPassword(PasswordEncoder passwordEncoder, String plainPassword) {
-        this.hashedPassword = passwordEncoder.encode(plainPassword);
+    private void validateToken(String token) {
+        if (this.isTokenExpired()) {
+            throw new TokenExpiredException();
+        }
+
+        if (this.token == null || !this.token.equals(token) || token.isEmpty()) {
+            throw new InvalidTokenException();
+        }
+    }
+
+    public void activateUser(String token, String hashedPassword) {
+        validateToken(token);
+        this.hashedPassword = hashedPassword;
+        this.token = null;
+        this.tokenExpirationDate = null;
+        enable();
     }
 
     String token() {
@@ -114,7 +129,7 @@ public class User extends BaseEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new HashSet<>();
+        return this.roles;
     }
 
     @Override
@@ -129,7 +144,7 @@ public class User extends BaseEntity implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
@@ -139,7 +154,7 @@ public class User extends BaseEntity implements UserDetails {
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     public boolean isEnabled() {
@@ -147,7 +162,7 @@ public class User extends BaseEntity implements UserDetails {
     }
 
     public boolean isTokenExpired() {
-        return tokenExpirationDate.isAfter(LocalDate.now());
+        return this.tokenExpirationDate != null && LocalDate.now().isAfter(this.tokenExpirationDate);
     }
 
     @Override

@@ -13,7 +13,8 @@ public class Spring5Init extends AbstractAnnotationConfigDispatcherServletInitia
         return new Class[]{
                 Spring5Configuration.class,
                 HibernatePersistenceConfiguration.class,
-                MessagesConfiguration.class
+                MessagesConfiguration.class,
+                SecurityConfiguration.class
         };
     }
 

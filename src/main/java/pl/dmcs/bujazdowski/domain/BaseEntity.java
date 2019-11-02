@@ -18,14 +18,14 @@ public abstract class BaseEntity {
     public BaseEntity() {
     }
 
-    public Long id() {
+    public Long getId() {
         return id;
     }
 
     @Override
     public String toString() {
         return "BaseEntity{" +
-                "id=" + id +
+                "getId=" + id +
                 '}';
     }
 

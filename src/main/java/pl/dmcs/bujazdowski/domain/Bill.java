@@ -19,7 +19,7 @@ public class Bill
     @Column(name = "AMOUNT", nullable = false)
     private Currency amount;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "APARTMENT_ID", referencedColumnName = "ID", nullable = false)
     private Apartment apartment;
 
