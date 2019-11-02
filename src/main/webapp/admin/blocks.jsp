@@ -54,6 +54,7 @@
         <table class="striped centered responsive-table">
             <thead>
             <tr>
+                <th>Id</th>
                 <th>City</th>
                 <th>Zip Code</th>
                 <th>Street</th>
@@ -68,6 +69,7 @@
             </c:if>
             <c:forEach items="${blocks}" var="block">
                 <tr>
+                    <td>${block.id}</td>
                     <td>${block.address.city}</td>
                     <td>${block.address.zipCode}</td>
                     <td>${block.address.street}</td>
