@@ -23,4 +23,38 @@ public class Bill
     @JoinColumn(name = "APARTMENT_ID", referencedColumnName = "ID", nullable = false)
     private Apartment apartment;
 
+    public Bill() {
+    }
+
+    public BillingType getType() {
+        return type;
+    }
+
+    public void setType(BillingType type) {
+        this.type = type;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public Currency getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Currency amount) {
+        this.amount = amount;
+    }
+
+    public Apartment getApartment() {
+        return apartment;
+    }
+
+    public void setApartment(Apartment apartment) {
+        this.apartment = apartment;
+    }
 }

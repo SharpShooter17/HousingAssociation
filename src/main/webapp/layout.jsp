@@ -13,15 +13,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
+<ul id="dropdown1" class="dropdown-content">
+    <li><a href="admin/users">Users</a></li>
+    <li class="divider"></li>
+    <li><a href="/admin/blocks">Blocks</a></li>
+    <li><a href="/admin/apartments">Apartments</a></li>
+    <li><a href="/admin/occupants">Occupants</a></li>
+    <li><a href="/admin/bills">Bills</a></li>
+</ul>
 <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Logo</a>
+    <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">HOUSING ASSOCIATION</a>
         <ul class="right hide-on-med-and-down">
-            <li><a href="#">Navbar Link</a></li>
-        </ul>
-
-        <ul id="nav-mobile" class="sidenav">
-            <li><a href="#">Navbar Link</a></li>
-            <th:insertAttribute name="menu"/>
+            <li>
+                <a class="dropdown-trigger" href="#!" data-target="dropdown1">
+                    Admin<i class="material-icons right">arrow_drop_down</i>
+                </a>
+            </li>
+            <li>
+                <a href="/perform_logout">Logout</a>
+            </li>
         </ul>
         <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     </div>
@@ -36,7 +46,15 @@
 </footer>
 
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/materialize/js/materialize.min.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/resources/materialize/js/materialize.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".dropdown-trigger").dropdown();
+    });
+</script>
+
 </body>
 </html>
 

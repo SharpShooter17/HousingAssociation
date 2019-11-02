@@ -26,4 +26,38 @@ public class Apartment
     @OneToMany(mappedBy = "apartment", fetch = FetchType.EAGER)
     private Set<Bill> bills = new HashSet<>();
 
+    public Apartment() {
+    }
+
+    public Block getBlock() {
+        return block;
+    }
+
+    public void setBlock(Block block) {
+        this.block = block;
+    }
+
+    public Short getNumber() {
+        return number;
+    }
+
+    public void setNumber(Short number) {
+        this.number = number;
+    }
+
+    public Set<User> getOccupants() {
+        return occupants;
+    }
+
+    public void setOccupants(Set<User> occupants) {
+        this.occupants = occupants;
+    }
+
+    public Set<Bill> getBills() {
+        return bills;
+    }
+
+    public void setBills(Set<Bill> bills) {
+        this.bills = bills;
+    }
 }

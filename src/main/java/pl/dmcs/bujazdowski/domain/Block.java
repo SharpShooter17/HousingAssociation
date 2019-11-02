@@ -9,11 +9,25 @@ import java.util.Set;
 public class Block
         extends BaseEntity {
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST})
     @JoinColumn(name = "ADDRESS_ID", referencedColumnName = "ID", nullable = false)
     private Address address;
 
     @OneToMany(mappedBy = "block", fetch = FetchType.EAGER)
     private Set<Apartment> apartments = new HashSet<>();
 
+    public Block(Address address) {
+        this.address = address;
+    }
+
+    public Block() {
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public Set<Apartment> getApartments() {
+        return apartments;
+    }
 }

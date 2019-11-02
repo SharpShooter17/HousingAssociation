@@ -11,6 +11,7 @@ import pl.dmcs.bujazdowski.exception.UserAlreadyExists;
 import pl.dmcs.bujazdowski.exception.UserNotFoundException;
 import pl.dmcs.bujazdowski.factory.UserFactory;
 
+import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -48,6 +49,8 @@ public class AuthenticationService {
         return users.contains(userCredentials);
     }
 
+
+    @Transactional
     public void registration(User user) {
         userRepository.findByEmail(user.getEmail())
                 .ifPresent(userExists -> {

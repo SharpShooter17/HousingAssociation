@@ -5,40 +5,40 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Users</title>
+    <title>Blocks</title>
 </head>
 <body>
 <div class="row">
     <div class="col s3"></div>
     <div class="col s6">
-        <h1>Register</h1>
-        <form:form method="post" action="/admin/addUser.html" modelAttribute="newUser">
+        <h1>Add Block</h1>
+        <form:form method="post" action="/admin/addBlock.html" modelAttribute="address">
             <div class="row">
                 <div class="input-field col s12">
-                    <form:label path="firstName">First Name</form:label>
-                    <form:input path="firstName"/>
+                    <form:label path="city">City</form:label>
+                    <form:input path="city"/>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <form:label path="lastName">Last Name</form:label>
-                    <form:input path="lastName"/>
+                    <form:label path="zipCode">Zip Code</form:label>
+                    <form:input path="zipCode"/>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <form:label path="email">Email</form:label>
-                    <form:input path="email"/>
+                    <form:label path="street">Street</form:label>
+                    <form:input path="street"/>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <form:label path="telephone">Telephone</form:label>
-                    <form:input path="telephone"/>
+                    <form:label path="number">Number</form:label>
+                    <form:input path="number"/>
                 </div>
             </div>
             <div class="row">
-                <button class="btn waves-effect waves-light" type="submit">Register new user
+                <button class="btn waves-effect waves-light" type="submit">Add Block
                     <i class="material-icons right">send</i>
                 </button>
             </div>
@@ -50,29 +50,29 @@
 <div class="row">
     <div class="col s2"></div>
     <div class="col s8">
-        <h3>Users:</h3>
+        <h3>Blocks:</h3>
         <table class="striped centered responsive-table">
             <thead>
             <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Telephone</th>
-                <th>Is enabled</th>
+                <th>City</th>
+                <th>Zip Code</th>
+                <th>Street</th>
+                <th>Number</th>
+                <th>Apartments</th>
             </tr>
             </thead>
 
             <tbody>
-            <c:if test="${users.isEmpty()}">
-                <td colspan="4">No Users Available</td>
+            <c:if test="${blocks.isEmpty()}">
+                <td colspan="5">No Block Available</td>
             </c:if>
-            <c:forEach items="${users}" var="user">
+            <c:forEach items="${blocks}" var="block">
                 <tr>
-                    <td>${user.firstName}</td>
-                    <td>${user.lastName}</td>
-                    <td>${user.email}</td>
-                    <td>${user.telephone}</td>
-                    <td>${user.isEnabled()}</td>
+                    <td>${block.address.city}</td>
+                    <td>${block.address.zipCode}</td>
+                    <td>${block.address.street}</td>
+                    <td>${block.address.number}</td>
+                    <td>${block.apartments.size()}</td>
                 </tr>
             </c:forEach>
             </tbody>

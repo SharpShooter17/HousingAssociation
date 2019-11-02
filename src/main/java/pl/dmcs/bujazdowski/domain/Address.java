@@ -3,6 +3,7 @@ package pl.dmcs.bujazdowski.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
@@ -21,6 +22,9 @@ public class Address
 
     @Column(name = "CITY", nullable = false)
     private String city;
+
+    public Address() {
+    }
 
     public Address(String zipCode, String street, String number, String city) {
         this.zipCode = zipCode;
@@ -43,6 +47,22 @@ public class Address
 
     public String getCity() {
         return city;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package pl.dmcs.bujazdowski.controller.admin;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,8 +20,9 @@ public class UserController {
     private final AuthenticationService authenticationService;
     private final UserRepository userRepository;
 
+    @Autowired
     public UserController(AuthenticationService authenticationService,
-                             UserRepository userRepository) {
+                          UserRepository userRepository) {
         this.authenticationService = authenticationService;
         this.userRepository = userRepository;
     }
