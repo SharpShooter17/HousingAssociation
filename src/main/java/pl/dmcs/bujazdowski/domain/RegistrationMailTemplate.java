@@ -9,7 +9,7 @@ public class RegistrationMailTemplate extends MailTemplate {
     private final Long userId;
 
     public RegistrationMailTemplate(User user) {
-        super(user.getEmail());
+        super(user.getEmail(), "Activation token");
         this.token = user.token();
         this.expirationDate = user.expirationDate();
         this.userId = user.getId();
@@ -18,7 +18,7 @@ public class RegistrationMailTemplate extends MailTemplate {
     @Override
     public String emailBody() {
         return "Welcome to our housing association!\n\n" +
-                "Please confirm your account and set new password with this link http://example.com/confirm/" +
+                "Please confirm your account and set new password with this link http://localhost:8080/activate/" +
                 this.token + "/" + this.userId +
                 "\nThis link will expire at " + expirationDate.toString();
     }

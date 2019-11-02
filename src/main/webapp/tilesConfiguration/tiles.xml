@@ -13,9 +13,9 @@
         <put-attribute name="footer" value="/footer.jsp"/>
     </definition>
 
-    <definition name="appUser" extends="base.definition">
-        <put-attribute name="title" value="AppUser"/>
-        <put-attribute name="content" value="/appUser.jsp"/>
+    <definition name="/admin/users" extends="base.definition">
+        <put-attribute name="title" value="Users"/>
+        <put-attribute name="content" value="/admin/users.jsp"/>
     </definition>
 
     <definition name="login" extends="base.definition">

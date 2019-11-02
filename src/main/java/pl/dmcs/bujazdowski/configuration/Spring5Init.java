@@ -14,7 +14,8 @@ public class Spring5Init extends AbstractAnnotationConfigDispatcherServletInitia
                 Spring5Configuration.class,
                 HibernatePersistenceConfiguration.class,
                 MessagesConfiguration.class,
-                SecurityConfiguration.class
+                SecurityConfiguration.class,
+                MailSenderConfiguration.class
         };
     }
 

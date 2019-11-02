@@ -1,4 +1,4 @@
-package pl.dmcs.bujazdowski.controller;
+package pl.dmcs.bujazdowski.controller.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,29 +13,29 @@ import javax.faces.bean.RequestScoped;
 
 @Controller
 @RequestScoped
-public class AppUserController {
+@RequestMapping(value = "/admin")
+public class UserController {
 
     private final AuthenticationService authenticationService;
     private final UserRepository userRepository;
 
-    public AppUserController(AuthenticationService authenticationService,
+    public UserController(AuthenticationService authenticationService,
                              UserRepository userRepository) {
         this.authenticationService = authenticationService;
         this.userRepository = userRepository;
     }
 
-    @RequestMapping(value = "/appUsers")
+    @RequestMapping(value = "/users")
     public String showAppUsers(Model model) {
         model.addAttribute("newUser", new User());
         model.addAttribute("users", userRepository.findAll());
-        return "appUser";
+        return "/admin/users";
     }
 
-    @RequestMapping(value = "/addAppUser", method = RequestMethod.POST)
+    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     public String addAppUser(@ModelAttribute("user") User user) {
         authenticationService.registration(user);
-        return "redirect:appUsers";
+        return "redirect:/admin/users";
     }
 
 }
-
