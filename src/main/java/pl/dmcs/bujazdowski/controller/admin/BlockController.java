@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import pl.dmcs.bujazdowski.dao.ApartmentRepository;
-import pl.dmcs.bujazdowski.dao.BlockRepository;
 import pl.dmcs.bujazdowski.domain.Address;
 import pl.dmcs.bujazdowski.domain.Apartment;
 import pl.dmcs.bujazdowski.domain.Block;
@@ -22,35 +20,29 @@ import java.util.Comparator;
 @RequestMapping(value = "/admin")
 public class BlockController {
 
-    private final HousingAssociationService housingAssociationService;
-    private final BlockRepository blockRepository;
-    private final ApartmentRepository apartmentRepository;
+    private final HousingAssociationService service;
 
     @Autowired
-    public BlockController(HousingAssociationService housingAssociationService,
-                           BlockRepository blockRepository,
-                           ApartmentRepository apartmentRepository) {
-        this.housingAssociationService = housingAssociationService;
-        this.blockRepository = blockRepository;
-        this.apartmentRepository = apartmentRepository;
+    public BlockController(HousingAssociationService service) {
+        this.service = service;
     }
 
     @RequestMapping(value = "/blocks")
     public String blocks(Model model) {
-        model.addAttribute("blocks", blockRepository.findAll());
+        model.addAttribute("blocks", service.findAllBlocks());
         model.addAttribute("address", new Address());
         return "/admin/blocks";
     }
 
     @RequestMapping(value = "/addBlock", method = RequestMethod.POST)
     public String addBlock(@ModelAttribute("address") Address address) {
-        housingAssociationService.addBlock(address);
+        service.addBlock(address);
         return "redirect:/admin/blocks";
     }
 
     @RequestMapping(value = "/block/{blockId}")
     public String block(@PathVariable("blockId") Long blockId, Model model) {
-        Block block = housingAssociationService.findBlock(blockId);
+        Block block = service.findBlock(blockId);
         Integer nextNumber = block.getApartments().stream()
                 .max(Comparator.comparing(Apartment::getNumber))
                 .map(Apartment::getNumber)
@@ -64,7 +56,7 @@ public class BlockController {
     @RequestMapping(value = "/block/{blockId}/addApartment", method = RequestMethod.POST)
     public String addApartment(@PathVariable("blockId") Long blockId,
                                @ModelAttribute("apartment") Apartment apartment) {
-        housingAssociationService.addApartment(blockId, apartment);
+        service.addApartment(blockId, apartment);
         return "redirect:/admin/block/" + apartment.getBlock().getId();
     }
 

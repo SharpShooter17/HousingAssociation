@@ -13,6 +13,7 @@ import javax.faces.bean.RequestScoped;
 
 @Controller
 @RequestScoped
+@RequestMapping(value = "/activate")
 public class ActivationController {
 
     private final AuthenticationService authenticationService;
@@ -22,14 +23,14 @@ public class ActivationController {
         this.authenticationService = authenticationService;
     }
 
-    @RequestMapping(value = "/activate/{token}/{userId}")
+    @RequestMapping(value = "/{token}/{userId}")
     public ModelAndView activate(@PathVariable("token") String token, @PathVariable("userId") Long userId) {
         ModelAndView model = new ModelAndView("activate");
         model.addObject("model", new ActivationModel(userId, token, ""));
         return model;
     }
 
-    @RequestMapping(value = "/activate-account", method = RequestMethod.POST)
+    @RequestMapping(value = "/account", method = RequestMethod.POST)
     public String activateAccount(@ModelAttribute("model") ActivationModel model) {
         authenticationService.activateAccount(
                 model.getUserId(),

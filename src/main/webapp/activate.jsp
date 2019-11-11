@@ -10,7 +10,7 @@
 <div class="row">
     <div class="col s3"></div>
     <form:form method="post"
-               action="/activate-account.html"
+               action="/activate/account.html"
                modelAttribute="model"
                cssClass="col s6">
         <h1>Activate account</h1>

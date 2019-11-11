@@ -1,5 +1,7 @@
 package pl.dmcs.bujazdowski.controller.authentication;
 
+import java.util.Objects;
+
 public class ActivationModel {
 
     private Long userId;
@@ -37,5 +39,19 @@ public class ActivationModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ActivationModel that = (ActivationModel) o;
+        return Objects.equals(userId, that.userId) &&
+                Objects.equals(token, that.token);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, token);
     }
 }

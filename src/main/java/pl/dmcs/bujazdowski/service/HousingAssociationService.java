@@ -1,7 +1,6 @@
 package pl.dmcs.bujazdowski.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate4.SpringSessionContext;
 import org.springframework.stereotype.Service;
 import pl.dmcs.bujazdowski.dao.ApartmentRepository;
 import pl.dmcs.bujazdowski.dao.BlockRepository;
@@ -26,10 +25,13 @@ public class HousingAssociationService {
         this.apartmentRepository = apartmentRepository;
     }
 
-    @Transactional
     public Block findBlock(Long blockId) {
         return this.blockRepository.findById(blockId)
                 .orElseThrow(() -> new NotFoundException("Can not find block with id: " + blockId));
+    }
+
+    public List<Block> findAllBlocks() {
+        return this.blockRepository.findAll();
     }
 
     @Transactional
