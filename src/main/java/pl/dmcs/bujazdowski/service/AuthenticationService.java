@@ -6,14 +6,11 @@ import org.springframework.stereotype.Service;
 import pl.dmcs.bujazdowski.dao.UserRepository;
 import pl.dmcs.bujazdowski.domain.RegistrationMailTemplate;
 import pl.dmcs.bujazdowski.domain.User;
-import pl.dmcs.bujazdowski.domain.UserCredentials;
 import pl.dmcs.bujazdowski.exception.UserAlreadyExists;
 import pl.dmcs.bujazdowski.exception.UserNotFoundException;
 import pl.dmcs.bujazdowski.factory.UserFactory;
 
 import javax.transaction.Transactional;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.logging.Logger;
 
 @Service
@@ -24,7 +21,6 @@ public class AuthenticationService {
     private final UserFactory userFactory;
     private final MailSenderService mailSenderService;
     private final UserRepository userRepository;
-    private Set<UserCredentials> users = new HashSet<>();
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -36,7 +32,6 @@ public class AuthenticationService {
         this.mailSenderService = mailSenderService;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.users.add(new UserCredentials("admin@example.com", "password"));
     }
 
     public void activateAccount(Long userId, String token, String password) {
@@ -44,11 +39,6 @@ public class AuthenticationService {
         user.activateUser(token, passwordEncoder.encode(password));
         userRepository.save(user);
     }
-
-    public Boolean authenticateUser(UserCredentials userCredentials) {
-        return users.contains(userCredentials);
-    }
-
 
     @Transactional
     public void registration(User user) {

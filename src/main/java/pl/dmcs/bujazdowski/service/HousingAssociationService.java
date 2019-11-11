@@ -1,6 +1,7 @@
 package pl.dmcs.bujazdowski.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate4.SpringSessionContext;
 import org.springframework.stereotype.Service;
 import pl.dmcs.bujazdowski.dao.ApartmentRepository;
 import pl.dmcs.bujazdowski.dao.BlockRepository;
@@ -10,6 +11,7 @@ import pl.dmcs.bujazdowski.domain.Block;
 import pl.dmcs.bujazdowski.exception.NotFoundException;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class HousingAssociationService {
@@ -40,6 +42,10 @@ public class HousingAssociationService {
         Block block = this.findBlock(blockId);
         block.addApartment(apartment);
         apartmentRepository.save(apartment);
+    }
+
+    public List<Apartment> userApartments() {
+        return this.apartmentRepository.findAll();
     }
 
 }

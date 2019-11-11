@@ -44,4 +44,10 @@
         <put-attribute name="content" value="/activate.jsp"/>
     </definition>
 
+    <definition name="homepage" extends="base.definition">
+        <put-attribute name="title" value="Homepage"/>
+        <put-attribute name="menu" value="/menu.jsp"/>
+        <put-attribute name="content" value="/homepage.jsp"/>
+    </definition>
+
 </tiles-definitions>
