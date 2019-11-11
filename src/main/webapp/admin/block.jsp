@@ -24,7 +24,9 @@
     <div class="col s3"></div>
     <div class="col s6">
         <h1>Add Apartment</h1>
-        <form:form method="post" action="/admin/addApartment.html" modelAttribute="apartment">
+        <form:form method="post"
+                   action="/admin/block/${block.id}/addApartment.html"
+                   modelAttribute="apartment">
             <div class="row">
                 <div class="input-field col s12">
                     <form:label path="number">Number</form:label>

@@ -7,6 +7,7 @@ import pl.dmcs.bujazdowski.dao.BlockRepository;
 import pl.dmcs.bujazdowski.domain.Address;
 import pl.dmcs.bujazdowski.domain.Apartment;
 import pl.dmcs.bujazdowski.domain.Block;
+import pl.dmcs.bujazdowski.exception.NotFoundException;
 
 import javax.transaction.Transactional;
 
@@ -24,12 +25,20 @@ public class HousingAssociationService {
     }
 
     @Transactional
+    public Block findBlock(Long blockId) {
+        return this.blockRepository.findById(blockId)
+                .orElseThrow(() -> new NotFoundException("Can not find block with id: " + blockId));
+    }
+
+    @Transactional
     public void addBlock(Address address) {
         blockRepository.save(new Block(address));
     }
 
     @Transactional
-    public void addApartment(Apartment apartment) {
+    public void addApartment(Long blockId, Apartment apartment) {
+        Block block = this.findBlock(blockId);
+        block.addApartment(apartment);
         apartmentRepository.save(apartment);
     }
 

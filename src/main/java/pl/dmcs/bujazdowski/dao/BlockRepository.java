@@ -5,11 +5,12 @@ import org.springframework.stereotype.Repository;
 import pl.dmcs.bujazdowski.domain.Block;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Repository
 @Transactional
 public interface BlockRepository extends JpaRepository<Block, Long> {
 
-    Block findById(Long id);
+    Optional<Block> findById(Long id);
 
 }

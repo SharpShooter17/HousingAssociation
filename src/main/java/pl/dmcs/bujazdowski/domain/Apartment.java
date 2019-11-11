@@ -1,7 +1,9 @@
 package pl.dmcs.bujazdowski.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -14,7 +16,7 @@ public class Apartment
     private Block block;
 
     @Column(name = "NUMBER", nullable = false)
-    private Short number;
+    private Integer number;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -29,20 +31,20 @@ public class Apartment
     public Apartment() {
     }
 
+    public Apartment(Integer number) {
+        this.number = number;
+    }
+
+    void locatedInBlock(Block block) {
+        this.block = block;
+    }
+
     public Block getBlock() {
         return block;
     }
 
-    public void setBlock(Block block) {
-        this.block = block;
-    }
-
-    public Short getNumber() {
+    public Integer getNumber() {
         return number;
-    }
-
-    public void setNumber(Short number) {
-        this.number = number;
     }
 
     public Set<User> getOccupants() {
@@ -59,5 +61,35 @@ public class Apartment
 
     public void setBills(Set<Bill> bills) {
         this.bills = bills;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
+    public void setBlock(Block block) {
+        this.block = block;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Apartment apartment = (Apartment) o;
+        return Objects.equals(block, apartment.block) &&
+                Objects.equals(number, apartment.number);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(block, number);
+    }
+
+    @Override
+    public String toString() {
+        return "Apartment{" +
+                "block=" + block +
+                ", number=" + number +
+                '}';
     }
 }

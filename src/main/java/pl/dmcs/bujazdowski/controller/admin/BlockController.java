@@ -50,24 +50,21 @@ public class BlockController {
 
     @RequestMapping(value = "/block/{blockId}")
     public String block(@PathVariable("blockId") Long blockId, Model model) {
-        Block block = blockRepository.findById(blockId);
-        Short nextNumber = (short) (block.getApartments().stream()
+        Block block = housingAssociationService.findBlock(blockId);
+        Integer nextNumber = block.getApartments().stream()
                 .max(Comparator.comparing(Apartment::getNumber))
                 .map(Apartment::getNumber)
-                .orElse((short) 0) + 1);
-
-        Apartment apartment = new Apartment();
-        apartment.setBlock(block);
-        apartment.setNumber(nextNumber);
+                .orElse(0) + 1;
 
         model.addAttribute("block", block);
-        model.addAttribute("apartment", new Apartment());
+        model.addAttribute("apartment", new Apartment(nextNumber));
         return "/admin/block";
     }
 
-    @RequestMapping(value = "/addApartment", method = RequestMethod.POST)
-    public String addApartment(@ModelAttribute("apartment") Apartment apartment) {
-        housingAssociationService.addApartment(apartment);
+    @RequestMapping(value = "/block/{blockId}/addApartment", method = RequestMethod.POST)
+    public String addApartment(@PathVariable("blockId") Long blockId,
+                               @ModelAttribute("apartment") Apartment apartment) {
+        housingAssociationService.addApartment(blockId, apartment);
         return "redirect:/admin/block/" + apartment.getBlock().getId();
     }
 
