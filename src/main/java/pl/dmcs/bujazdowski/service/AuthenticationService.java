@@ -1,6 +1,9 @@
 package pl.dmcs.bujazdowski.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.dmcs.bujazdowski.dao.UserRepository;
@@ -41,6 +44,7 @@ public class AuthenticationService {
     }
 
     @Transactional
+    @PreAuthorize("hasAuthority('ADMINISTRATOR')")
     public void registration(User user) {
         userRepository.findByEmail(user.getEmail())
                 .ifPresent(userExists -> {
@@ -53,5 +57,14 @@ public class AuthenticationService {
         RegistrationMailTemplate mail = new RegistrationMailTemplate(user);
         mailSenderService.sendMail(mail);
         log.info("Registered new user: " + user.toString());
+    }
+
+    public User findUser(String email) {
+        return userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
+    }
+
+    public User currentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return (User) authentication.getPrincipal();
     }
 }

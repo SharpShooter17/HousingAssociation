@@ -2,18 +2,69 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Homepage</title>
 </head>
 <body>
+<sec:authorize access="hasAuthority('USER')">
+    <div class="row">
+        <div class="col s6">
+            <h3>Yours Apartments</h3>
+            <table class="striped centered responsive-table">
+                <thead>
+                <tr>
+                    <th>Address</th>
+                    <th>Occupants</th>
+                </tr>
+                </thead>
 
-<div class="row">
-    <div class="col s2"></div>
-    <div class="col s8">Homepage</div>
-    <div class="col s2"></div>
-</div>
+                <tbody>
+                <c:if test="${apartments.isEmpty()}">
+                    <td colspan="5">No Apartments Available</td>
+                </c:if>
+                <c:forEach items="${apartments}" var="apartment">
+                    <tr>
+                        <td>${apartment.displayName()}</td>
+                        <td>${apartment.occupants.size()}</td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+        <div class="col s6">
+            <h3>Yours Bills</h3>
+            <table class="striped centered responsive-table">
+                <thead>
+                <tr>
+                    <th>Address</th>
+                    <th>Type</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Download</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <c:if test="${bills.isEmpty()}">
+                    <td colspan="5">No Bills Available</td>
+                </c:if>
+                <c:forEach items="${bills}" var="bill">
+                    <tr>
+                        <td>${bill.displayName()}</td>
+                        <td>${bill.type}</td>
+                        <td>${bill.date}</td>
+                        <td>${bill.amount}</td>
+                        <td><a href="#download">link</a></td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</sec:authorize>
 
 </body>
 </html>

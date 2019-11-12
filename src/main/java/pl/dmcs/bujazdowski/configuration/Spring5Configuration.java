@@ -24,6 +24,7 @@ public class Spring5Configuration implements WebMvcConfigurer {
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
         TilesViewResolver viewResolver = new TilesViewResolver();
+        viewResolver.setOrder(0);
         registry.viewResolver(viewResolver);
     }
 

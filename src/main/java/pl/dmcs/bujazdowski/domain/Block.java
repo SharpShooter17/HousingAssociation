@@ -62,4 +62,8 @@ public class Block
                 "address=" + address +
                 '}';
     }
+
+    public String displayName() {
+        return address.getZipCode() + " " + address.getStreet() + " " + address.getNumber();
+    }
 }

@@ -92,4 +92,8 @@ public class Apartment
                 ", number=" + number +
                 '}';
     }
+
+    public String displayName() {
+        return block.displayName() + "/" + number;
+    }
 }

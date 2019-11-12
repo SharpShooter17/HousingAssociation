@@ -26,6 +26,10 @@ public class Bill
     public Bill() {
     }
 
+    public String displayName() {
+        return apartment.displayName();
+    }
+
     public BillingType getType() {
         return type;
     }

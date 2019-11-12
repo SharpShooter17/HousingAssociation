@@ -10,20 +10,43 @@
 <body>
 
 <div class="row">
-    <div class="col s3"></div>
     <div class="col s6">
-        <h1>Details</h1>
-        <span>${block.address.zipCode} City: ${block.address.city}</span>
+        <h2>Details</h2>
+        <span>${block.displayName()}</span>
         <br/>
-        <span>Street: ${block.address.street} Number: ${block.address.number}</span>
+        <span>${block.address.city}</span>
+        <br />
+        <span>Apartments: ${block.apartments.size()}</span>
     </div>
-    <div class="col s3"></div>
 </div>
 
 <div class="row">
-    <div class="col s3"></div>
-    <div class="col s6">
-        <h1>Add Apartment</h1>
+    <div class="col s5">
+        <h3>Apartments:</h3>
+        <table class="striped centered responsive-table">
+            <thead>
+            <tr>
+                <th>Address</th>
+                <th>Occupants</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <c:if test="${block.apartments.isEmpty()}">
+                <td colspan="5">No Apartments Available</td>
+            </c:if>
+            <c:forEach items="${block.apartments}" var="apartment">
+                <tr>
+                    <td>${apartment.displayName()}</td>
+                    <td>${apartment.occupants.size()}</td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+    <div class="col s1"></div>
+    <div class="col s5">
+        <h3>Add Apartment</h3>
         <form:form method="post"
                    action="/admin/block/${block.id}/addApartment.html"
                    modelAttribute="apartment">
@@ -41,37 +64,6 @@
             </div>
         </form:form>
     </div>
-    <div class="col s3"></div>
-</div>
-
-<div class="row">
-    <div class="col s2"></div>
-    <div class="col s8">
-        <h3>Apartments:</h3>
-        <table class="striped centered responsive-table">
-            <thead>
-            <tr>
-                <th>Id</th>
-                <th>Number</th>
-                <th>Occupants</th>
-            </tr>
-            </thead>
-
-            <tbody>
-            <c:if test="${block.apartments.isEmpty()}">
-                <td colspan="5">No Apartments Available</td>
-            </c:if>
-            <c:forEach items="${block.apartments}" var="apartment">
-                <tr>
-                    <td>${apartment.id}</td>
-                    <td>${apartment.number}</td>
-                    <td>${apartment.occupants.size()}</td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
-    </div>
-    <div class="col s2"></div>
 </div>
 
 </body>

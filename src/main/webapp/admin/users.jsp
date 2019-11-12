@@ -70,7 +70,7 @@
                 <tr>
                     <td>${user.firstName}</td>
                     <td>${user.lastName}</td>
-                    <td>${user.email}</td>
+                    <td><a href="/user/${user.id}">${user.email}</a></td>
                     <td>${user.telephone}</td>
                     <td>${user.isEnabled()}</td>
                 </tr>

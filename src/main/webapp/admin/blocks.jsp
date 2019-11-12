@@ -9,8 +9,33 @@
 </head>
 <body>
 <div class="row">
-    <div class="col s3"></div>
-    <div class="col s6">
+    <div class="col s5">
+        <h3>Blocks:</h3>
+        <table class="striped centered responsive-table">
+            <thead>
+            <tr>
+                <th>City</th>
+                <th>Address</th>
+                <th>Apartments</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <c:if test="${blocks.isEmpty()}">
+                <td colspan="5">No Block Available</td>
+            </c:if>
+            <c:forEach items="${blocks}" var="block">
+                <tr>
+                    <td>${block.address.city}</td>
+                    <td><a href="/admin/block/${block.id}">${block.displayName()}</a></td>
+                    <td>${block.apartments.size()}</td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+    <div class="col s1"></div>
+    <div class="col s5">
         <h1>Add Block</h1>
         <form:form method="post" action="/admin/addBlock.html" modelAttribute="address">
             <div class="row">
@@ -44,45 +69,8 @@
             </div>
         </form:form>
     </div>
-    <div class="col s3"></div>
+    <div class="col s1"></div>
 </div>
-
-<div class="row">
-    <div class="col s2"></div>
-    <div class="col s8">
-        <h3>Blocks:</h3>
-        <table class="striped centered responsive-table">
-            <thead>
-            <tr>
-                <th>Id</th>
-                <th>City</th>
-                <th>Zip Code</th>
-                <th>Street</th>
-                <th>Number</th>
-                <th>Apartments</th>
-            </tr>
-            </thead>
-
-            <tbody>
-            <c:if test="${blocks.isEmpty()}">
-                <td colspan="5">No Block Available</td>
-            </c:if>
-            <c:forEach items="${blocks}" var="block">
-                <tr>
-                    <td>${block.id}</td>
-                    <td>${block.address.city}</td>
-                    <td>${block.address.zipCode}</td>
-                    <td>${block.address.street}</td>
-                    <td>${block.address.number}</td>
-                    <td>${block.apartments.size()}</td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
-    </div>
-    <div class="col s2"></div>
-</div>
-
 </body>
 </html>
 

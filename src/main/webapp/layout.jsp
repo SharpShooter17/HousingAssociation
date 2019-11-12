@@ -1,5 +1,6 @@
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="th" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="th" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -13,27 +14,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
-<ul id="dropdown1" class="dropdown-content">
-    <li><a href="admin/users">Users</a></li>
+<ul id="administratorMenu" class="dropdown-content">
+    <li><a href="/admin/users">Users</a></li>
     <li class="divider"></li>
     <li><a href="/admin/blocks">Blocks</a></li>
-    <li><a href="/admin/apartments">Apartments</a></li>
+</ul>
+<ul id="moderatorMenu" class="dropdown-content">
     <li><a href="/admin/occupants">Occupants</a></li>
     <li><a href="/admin/bills">Bills</a></li>
 </ul>
 <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">HOUSING ASSOCIATION</a>
-        <ul class="right hide-on-med-and-down">
-            <li>
-                <a class="dropdown-trigger" href="#!" data-target="dropdown1">
-                    Admin<i class="material-icons right">arrow_drop_down</i>
-                </a>
-            </li>
-            <li>
-                <a href="/perform_logout">Logout</a>
-            </li>
-        </ul>
-        <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    <div class="nav-wrapper container"><a id="logo-container" href="/homepage" class="brand-logo">HOUSING ASSOCIATION</a>
+        <sec:authorize access="isAuthenticated()">
+
+            <ul class="right hide-on-med-and-down">
+                <sec:authorize access="hasAuthority('ADMINISTRATOR')">
+                    <li>
+                        <a class="dropdown-trigger" href="#!" data-target="administratorMenu">
+                            Admin<i class="material-icons right">arrow_drop_down</i>
+                        </a>
+                    </li>
+                </sec:authorize>
+                <sec:authorize access="hasAuthority('MODERATOR')">
+                    <li>
+                        <a class="dropdown-trigger" href="#!" data-target="moderatorMenu">
+                            Moderator<i class="material-icons right">arrow_drop_down</i>
+                        </a>
+                    </li>
+                </sec:authorize>
+                <li>
+                    <sec:authentication property="principal.username"/>
+                </li>
+                <li>
+                    <a href="/perform_logout">Logout</a>
+                </li>
+            </ul>
+            <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        </sec:authorize>
     </div>
 </nav>
 
@@ -50,7 +67,7 @@
         src="${pageContext.request.contextPath}/resources/materialize/js/materialize.min.js"></script>
 
 <script type="text/javascript">
-    $(document).ready(function(){
+    $(document).ready(function () {
         $(".dropdown-trigger").dropdown();
     });
 </script>
