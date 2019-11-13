@@ -49,10 +49,4 @@
         <put-attribute name="content" value="/homepage.jsp"/>
     </definition>
 
-    <definition name="user"
-                extends="base.definition">
-        <put-attribute name="title" value="User"/>
-        <put-attribute name="content" value="/user.jsp"/>
-    </definition>
-
 </tiles-definitions>

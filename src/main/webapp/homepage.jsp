@@ -9,6 +9,18 @@
     <title>Homepage</title>
 </head>
 <body>
+<div class="row">
+    <div class="col s12 m6">
+        <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+                <span class="card-title">User details</span>
+                <p>Name: <sec:authentication property="principal.firstName"/> <sec:authentication property="principal.lastName"/></p>
+                <p>Telephone: <sec:authentication property="principal.telephone"/></p>
+                <p>Email: <sec:authentication property="principal.email"/></p>
+            </div>
+        </div>
+    </div>
+</div>
 <sec:authorize access="hasAuthority('USER')">
     <div class="row">
         <div class="col s6">
