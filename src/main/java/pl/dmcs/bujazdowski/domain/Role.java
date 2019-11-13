@@ -20,6 +20,10 @@ public class Role extends BaseEntity implements GrantedAuthority {
     public Role() {
     }
 
+    public RoleType getName() {
+        return name;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

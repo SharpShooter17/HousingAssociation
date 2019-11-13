@@ -10,6 +10,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "USER_T")
@@ -85,6 +86,13 @@ public class User extends BaseEntity implements UserDetails {
         this.token = null;
         this.tokenExpirationDate = null;
         enable();
+    }
+
+    public String displayRoles() {
+        return roles.stream()
+                .map(Role::getName)
+                .map(RoleType::name)
+                .collect(Collectors.joining(", "));
     }
 
     String token() {

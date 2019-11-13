@@ -12,6 +12,13 @@
           href="${pageContext.request.contextPath}/resources/materialize/css/materialize.css"
           media="screen,projection"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style type="text/css">
+        [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+            position: relative;
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
 </head>
 <body>
 <ul id="administratorMenu" class="dropdown-content">
@@ -24,7 +31,8 @@
     <li><a href="/admin/bills">Bills</a></li>
 </ul>
 <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="/homepage" class="brand-logo">HOUSING ASSOCIATION</a>
+    <div class="nav-wrapper container">
+        <a id="logo-container" href="/homepage" class="brand-logo">HOUSING ASSOCIATION</a>
         <sec:authorize access="isAuthenticated()">
 
             <ul class="right hide-on-med-and-down">

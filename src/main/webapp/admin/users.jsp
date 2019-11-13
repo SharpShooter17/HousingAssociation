@@ -15,26 +15,32 @@
         <form:form method="post" action="/admin/addUser.html" modelAttribute="newUser">
             <div class="row">
                 <div class="input-field col s12">
-                    <form:label path="firstName">First Name</form:label>
-                    <form:input path="firstName"/>
+                    <form:label path="user.firstName">First Name</form:label>
+                    <form:input path="user.firstName"/>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <form:label path="lastName">Last Name</form:label>
-                    <form:input path="lastName"/>
+                    <form:label path="user.lastName">Last Name</form:label>
+                    <form:input path="user.lastName"/>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <form:label path="email">Email</form:label>
-                    <form:input path="email"/>
+                    <form:label path="user.email">Email</form:label>
+                    <form:input path="user.email"/>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <form:label path="telephone">Telephone</form:label>
-                    <form:input path="telephone"/>
+                    <form:label path="user.telephone">Telephone</form:label>
+                    <form:input path="user.telephone"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    Roles:
+                    <form:checkboxes path="roles" items="${availableRoles}"/>
                 </div>
             </div>
             <div class="row">
@@ -48,8 +54,7 @@
 </div>
 
 <div class="row">
-    <div class="col s2"></div>
-    <div class="col s8">
+    <div class="col s12">
         <h3>Users:</h3>
         <table class="striped centered responsive-table">
             <thead>
@@ -58,6 +63,7 @@
                 <th>Last Name</th>
                 <th>Email</th>
                 <th>Telephone</th>
+                <th>Roles</th>
                 <th>Is enabled</th>
             </tr>
             </thead>
@@ -72,13 +78,13 @@
                     <td>${user.lastName}</td>
                     <td><a href="/user/${user.id}">${user.email}</a></td>
                     <td>${user.telephone}</td>
+                    <td>${user.displayRoles()}</td>
                     <td>${user.isEnabled()}</td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
     </div>
-    <div class="col s2"></div>
 </div>
 
 </body>
