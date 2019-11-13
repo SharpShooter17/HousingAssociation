@@ -49,6 +49,12 @@
         <put-attribute name="content" value="/page/block/details.jsp"/>
     </definition>
 
+    <definition name="/page/block/apartment/add"
+                extends="base.definition">
+        <put-attribute name="title" value="Block"/>
+        <put-attribute name="content" value="/page/block/apartment/add.jsp"/>
+    </definition>
+
     <definition name="login"
                 extends="base.definition">
         <put-attribute name="title" value="Login"/>

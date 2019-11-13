@@ -8,12 +8,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.dmcs.bujazdowski.domain.Address;
-import pl.dmcs.bujazdowski.domain.Apartment;
 import pl.dmcs.bujazdowski.domain.Block;
 import pl.dmcs.bujazdowski.service.HousingAssociationService;
 
 import javax.faces.bean.RequestScoped;
-import java.util.Comparator;
 
 @Controller
 @RequestScoped
@@ -53,21 +51,8 @@ public class BlockController {
     @RequestMapping(value = detailsPath + "/{blockId}")
     public String block(@PathVariable("blockId") Long blockId, Model model) {
         Block block = service.findBlock(blockId);
-        Integer nextNumber = block.getApartments().stream()
-                .max(Comparator.comparing(Apartment::getNumber))
-                .map(Apartment::getNumber)
-                .orElse(0) + 1;
-
         model.addAttribute("block", block);
-        model.addAttribute("apartment", new Apartment(nextNumber));
         return basePath + detailsPath;
-    }
-
-    @RequestMapping(value = detailsPath + "/{blockId}/addApartment", method = RequestMethod.POST)
-    public String addApartment(@PathVariable("blockId") Long blockId,
-                               @ModelAttribute("apartment") Apartment apartment) {
-        service.addApartment(blockId, apartment);
-        return "redirect:" + basePath + detailsPath + apartment.getBlock().getId();
     }
 
 }

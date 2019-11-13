@@ -15,14 +15,20 @@
         <span>${block.displayName()}</span>
         <br/>
         <span>${block.address.city}</span>
-        <br />
+        <br/>
         <span>Apartments: ${block.apartments.size()}</span>
     </div>
 </div>
 
 <div class="row">
-    <div class="col s5">
-        <h3>Apartments:</h3>
+    <div class="col s12">
+        <h3>
+            Apartments:
+            <a href="/page/block/details/${block.id}/apartment/add"
+               class="btn-floating btn-small waves-effect waves-light red">
+                <i class="material-icons">add</i>
+            </a>
+        </h3>
         <table class="striped centered responsive-table">
             <thead>
             <tr>
@@ -43,26 +49,6 @@
             </c:forEach>
             </tbody>
         </table>
-    </div>
-    <div class="col s1"></div>
-    <div class="col s5">
-        <h3>Add Apartment</h3>
-        <form:form method="post"
-                   action="/page/block/details/${block.id}/addApartment.html"
-                   modelAttribute="apartment">
-            <div class="row">
-                <div class="input-field col s12">
-                    <form:label path="number">Number</form:label>
-                    <form:input path="number"/>
-                </div>
-            </div>
-
-            <div class="row">
-                <button class="btn waves-effect waves-light" type="submit">Add Apartment
-                    <i class="material-icons right">send</i>
-                </button>
-            </div>
-        </form:form>
     </div>
 </div>
 

@@ -21,25 +21,24 @@
     </style>
 </head>
 <body>
-<ul id="administratorMenu" class="dropdown-content">
-    <li><a href="/admin/users">Users</a></li>
-    <li class="divider"></li>
-    <li><a href="/admin/blocks">Blocks</a></li>
-</ul>
-<ul id="moderatorMenu" class="dropdown-content">
-    <li><a href="/moderator/occupants">Occupants</a></li>
-    <li><a href="/moderator/bills">Bills</a></li>
-</ul>
 <ul id="dropdownMenu" class="dropdown-content">
-    <li><a href="/page/user/list">Users</a></li>
-    <li><a href="/page/user/register">Register user</a></li>
+    <sec:authorize access="hasAnyAuthority('ADMINISTRATOR', 'MODERATOR')">
+        <li><a href="/page/user/list">Users</a></li>
+    </sec:authorize>
+    <sec:authorize access="hasAuthority('ADMINISTRATOR')">
+        <li><a href="/page/user/register">Register user</a></li>
+    </sec:authorize>
     <li class="divider"></li>
-    <li><a href="/page/block/list">Blocks</a></li>
-    <li><a href="/page/block/add">Add block</a></li>
+    <sec:authorize access="hasAnyAuthority('ADMINISTRATOR', 'MODERATOR')">
+        <li><a href="/page/block/list">Blocks</a></li>
+    </sec:authorize>
+    <sec:authorize access="hasAuthority('ADMINISTRATOR')">
+        <li><a href="/page/block/add">Add block</a></li>
+    </sec:authorize>
 </ul>
 <nav class="light-blue lighten-1" role="navigation">
     <div class="nav-wrapper container">
-        <a id="logo-container" href="/homepage" class="brand-logo">HOUSING ASSOCIATION</a>
+        <a id="logo-container" href="/page/home" class="brand-logo">HOUSING ASSOCIATION</a>
         <sec:authorize access="isAuthenticated()">
 
             <ul class="right hide-on-med-and-down">
@@ -48,20 +47,6 @@
                         Menu<i class="material-icons right">arrow_drop_down</i>
                     </a>
                 </li>
-                <sec:authorize access="hasAuthority('ADMINISTRATOR')">
-                    <li>
-                        <a class="dropdown-trigger" href="#!" data-target="administratorMenu">
-                            Admin<i class="material-icons right">arrow_drop_down</i>
-                        </a>
-                    </li>
-                </sec:authorize>
-                <sec:authorize access="hasAuthority('MODERATOR')">
-                    <li>
-                        <a class="dropdown-trigger" href="#!" data-target="moderatorMenu">
-                            Moderator<i class="material-icons right">arrow_drop_down</i>
-                        </a>
-                    </li>
-                </sec:authorize>
                 <li>
                     <sec:authentication property="principal.username"/>
                 </li>
