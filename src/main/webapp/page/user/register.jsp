@@ -12,7 +12,7 @@
     <div class="col s3"></div>
     <div class="col s6">
         <h1>Register</h1>
-        <form:form method="post" action="/admin/addUser.html" modelAttribute="newUser">
+        <form:form method="post" action="/page/user/register" modelAttribute="newUser">
             <div class="row">
                 <div class="input-field col s12">
                     <form:label path="user.firstName">First Name</form:label>
@@ -52,41 +52,6 @@
     </div>
     <div class="col s3"></div>
 </div>
-
-<div class="row">
-    <div class="col s12">
-        <h3>Users:</h3>
-        <table class="striped centered responsive-table">
-            <thead>
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Telephone</th>
-                <th>Roles</th>
-                <th>Is enabled</th>
-            </tr>
-            </thead>
-
-            <tbody>
-            <c:if test="${users.isEmpty()}">
-                <td colspan="4">No Users Available</td>
-            </c:if>
-            <c:forEach items="${users}" var="user">
-                <tr>
-                    <td>${user.firstName}</td>
-                    <td>${user.lastName}</td>
-                    <td><a href="/user/${user.id}">${user.email}</a></td>
-                    <td>${user.telephone}</td>
-                    <td>${user.displayRoles()}</td>
-                    <td>${user.isEnabled()}</td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
-    </div>
-</div>
-
 </body>
 </html>
 

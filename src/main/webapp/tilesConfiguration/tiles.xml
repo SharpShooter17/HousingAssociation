@@ -13,22 +13,40 @@
         <put-attribute name="footer" value="/footer.jsp"/>
     </definition>
 
-    <definition name="/admin/users"
+    <definition name="/page/user/list"
                 extends="base.definition">
         <put-attribute name="title" value="Users"/>
-        <put-attribute name="content" value="/admin/users.jsp"/>
+        <put-attribute name="content" value="/page/user/list.jsp"/>
     </definition>
 
-    <definition name="/admin/blocks"
+    <definition name="/page/user/register"
+                extends="base.definition">
+        <put-attribute name="title" value="Register"/>
+        <put-attribute name="content" value="/page/user/register.jsp"/>
+    </definition>
+
+    <definition name="/page/user/activate"
+                extends="base.definition">
+        <put-attribute name="title" value="Activate account"/>
+        <put-attribute name="content" value="/page/user/activate.jsp"/>
+    </definition>
+
+    <definition name="/page/block/list"
                 extends="base.definition">
         <put-attribute name="title" value="Blocks"/>
-        <put-attribute name="content" value="/admin/blocks.jsp"/>
+        <put-attribute name="content" value="/page/block/list.jsp"/>
     </definition>
 
-    <definition name="/admin/block"
+    <definition name="/page/block/add"
+                extends="base.definition">
+        <put-attribute name="title" value="Blocks"/>
+        <put-attribute name="content" value="/page/block/add.jsp"/>
+    </definition>
+
+    <definition name="/page/block/details"
                 extends="base.definition">
         <put-attribute name="title" value="Block"/>
-        <put-attribute name="content" value="/admin/block.jsp"/>
+        <put-attribute name="content" value="/page/block/details.jsp"/>
     </definition>
 
     <definition name="login"
@@ -37,16 +55,10 @@
         <put-attribute name="content" value="/login.jsp"/>
     </definition>
 
-    <definition name="activate"
-                extends="base.definition">
-        <put-attribute name="title" value="Activate account"/>
-        <put-attribute name="content" value="/activate.jsp"/>
-    </definition>
-
-    <definition name="homepage"
+    <definition name="/page/home"
                 extends="base.definition">
         <put-attribute name="title" value="Homepage"/>
-        <put-attribute name="content" value="/homepage.jsp"/>
+        <put-attribute name="content" value="/page/home.jsp"/>
     </definition>
 
 </tiles-definitions>

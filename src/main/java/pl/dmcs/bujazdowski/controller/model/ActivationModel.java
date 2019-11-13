@@ -1,4 +1,4 @@
-package pl.dmcs.bujazdowski.controller.authentication;
+package pl.dmcs.bujazdowski.controller.model;
 
 import java.util.Objects;
 

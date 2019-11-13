@@ -27,8 +27,15 @@
     <li><a href="/admin/blocks">Blocks</a></li>
 </ul>
 <ul id="moderatorMenu" class="dropdown-content">
-    <li><a href="/admin/occupants">Occupants</a></li>
-    <li><a href="/admin/bills">Bills</a></li>
+    <li><a href="/moderator/occupants">Occupants</a></li>
+    <li><a href="/moderator/bills">Bills</a></li>
+</ul>
+<ul id="dropdownMenu" class="dropdown-content">
+    <li><a href="/page/user/list">Users</a></li>
+    <li><a href="/page/user/register">Register user</a></li>
+    <li class="divider"></li>
+    <li><a href="/page/block/list">Blocks</a></li>
+    <li><a href="/page/block/add">Add block</a></li>
 </ul>
 <nav class="light-blue lighten-1" role="navigation">
     <div class="nav-wrapper container">
@@ -36,6 +43,11 @@
         <sec:authorize access="isAuthenticated()">
 
             <ul class="right hide-on-med-and-down">
+                <li>
+                    <a class="dropdown-trigger" href="#!" data-target="dropdownMenu">
+                        Menu<i class="material-icons right">arrow_drop_down</i>
+                    </a>
+                </li>
                 <sec:authorize access="hasAuthority('ADMINISTRATOR')">
                     <li>
                         <a class="dropdown-trigger" href="#!" data-target="administratorMenu">

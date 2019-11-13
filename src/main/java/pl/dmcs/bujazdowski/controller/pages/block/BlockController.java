@@ -1,4 +1,4 @@
-package pl.dmcs.bujazdowski.controller.admin;
+package pl.dmcs.bujazdowski.controller.pages.block;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,8 +17,13 @@ import java.util.Comparator;
 
 @Controller
 @RequestScoped
-@RequestMapping(value = "/admin")
+@RequestMapping(value = "/page/block")
 public class BlockController {
+
+    private final String basePath = "/page/block";
+    private final String listPath = "/list";
+    private final String addPath = "/add";
+    private final String detailsPath = "/details";
 
     private final HousingAssociationService service;
 
@@ -27,20 +32,25 @@ public class BlockController {
         this.service = service;
     }
 
-    @RequestMapping(value = "/blocks")
+    @RequestMapping(value = listPath)
     public String blocks(Model model) {
         model.addAttribute("blocks", service.findAllBlocks());
+        return basePath + listPath;
+    }
+
+    @RequestMapping(value = addPath)
+    public String addPage(Model model) {
         model.addAttribute("address", new Address());
-        return "/admin/blocks";
+        return basePath + addPath;
     }
 
-    @RequestMapping(value = "/addBlock", method = RequestMethod.POST)
-    public String addBlock(@ModelAttribute("address") Address address) {
+    @RequestMapping(value = addPath, method = RequestMethod.POST)
+    public String addAction(@ModelAttribute("address") Address address) {
         service.addBlock(address);
-        return "redirect:/admin/blocks";
+        return "redirect:" + basePath + listPath;
     }
 
-    @RequestMapping(value = "/block/{blockId}")
+    @RequestMapping(value = detailsPath + "/{blockId}")
     public String block(@PathVariable("blockId") Long blockId, Model model) {
         Block block = service.findBlock(blockId);
         Integer nextNumber = block.getApartments().stream()
@@ -50,15 +60,14 @@ public class BlockController {
 
         model.addAttribute("block", block);
         model.addAttribute("apartment", new Apartment(nextNumber));
-        return "/admin/block";
+        return basePath + detailsPath;
     }
 
-    @RequestMapping(value = "/block/{blockId}/addApartment", method = RequestMethod.POST)
+    @RequestMapping(value = detailsPath + "/{blockId}/addApartment", method = RequestMethod.POST)
     public String addApartment(@PathVariable("blockId") Long blockId,
                                @ModelAttribute("apartment") Apartment apartment) {
         service.addApartment(blockId, apartment);
-        return "redirect:/admin/block/" + apartment.getBlock().getId();
+        return "redirect:" + basePath + detailsPath + apartment.getBlock().getId();
     }
-
 
 }

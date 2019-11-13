@@ -9,35 +9,10 @@
 </head>
 <body>
 <div class="row">
-    <div class="col s5">
-        <h3>Blocks:</h3>
-        <table class="striped centered responsive-table">
-            <thead>
-            <tr>
-                <th>City</th>
-                <th>Address</th>
-                <th>Apartments</th>
-            </tr>
-            </thead>
-
-            <tbody>
-            <c:if test="${blocks.isEmpty()}">
-                <td colspan="5">No Block Available</td>
-            </c:if>
-            <c:forEach items="${blocks}" var="block">
-                <tr>
-                    <td>${block.address.city}</td>
-                    <td><a href="/admin/block/${block.id}">${block.displayName()}</a></td>
-                    <td>${block.apartments.size()}</td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
-    </div>
-    <div class="col s1"></div>
-    <div class="col s5">
+    <div class="col s3"></div>
+    <div class="col s6">
         <h1>Add Block</h1>
-        <form:form method="post" action="/admin/addBlock.html" modelAttribute="address">
+        <form:form method="post" action="/page/block/add" modelAttribute="address">
             <div class="row">
                 <div class="input-field col s12">
                     <form:label path="city">City</form:label>
@@ -69,7 +44,6 @@
             </div>
         </form:form>
     </div>
-    <div class="col s1"></div>
 </div>
 </body>
 </html>

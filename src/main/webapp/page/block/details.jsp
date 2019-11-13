@@ -48,7 +48,7 @@
     <div class="col s5">
         <h3>Add Apartment</h3>
         <form:form method="post"
-                   action="/admin/block/${block.id}/addApartment.html"
+                   action="/page/block/details/${block.id}/addApartment.html"
                    modelAttribute="apartment">
             <div class="row">
                 <div class="input-field col s12">

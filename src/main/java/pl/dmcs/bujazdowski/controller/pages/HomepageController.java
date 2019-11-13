@@ -1,4 +1,4 @@
-package pl.dmcs.bujazdowski.controller;
+package pl.dmcs.bujazdowski.controller.pages;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestScoped
-@RequestMapping("/homepage")
+@RequestMapping("/page")
 public class HomepageController {
 
     private final HousingAssociationService service;
@@ -25,14 +25,14 @@ public class HomepageController {
         this.service = service;
     }
 
-    @RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/home"}, method = RequestMethod.GET)
     public ModelAndView homepage() {
         Set<Apartment> apartments = service.userApartments();
         Set<Bill> bills = apartments.stream()
                 .flatMap(apartment -> apartment.getBills().stream())
                 .collect(Collectors.toSet());
 
-        ModelAndView modelAndView = new ModelAndView("homepage");
+        ModelAndView modelAndView = new ModelAndView("/page/home");
         modelAndView.addObject("apartments", apartments);
         modelAndView.addObject("bills", bills);
         return modelAndView;
