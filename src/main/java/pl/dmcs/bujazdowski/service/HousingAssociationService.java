@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.dmcs.bujazdowski.dao.ApartmentRepository;
 import pl.dmcs.bujazdowski.dao.BillRepository;
 import pl.dmcs.bujazdowski.dao.BlockRepository;
+import pl.dmcs.bujazdowski.dao.UserRepository;
 import pl.dmcs.bujazdowski.domain.*;
 import pl.dmcs.bujazdowski.exception.NotFoundException;
 import pl.dmcs.bujazdowski.security.OnlyAdministrator;
@@ -21,16 +22,19 @@ public class HousingAssociationService {
     private final ApartmentRepository apartmentRepository;
     private final AuthenticationService authenticationService;
     private final BillRepository billRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public HousingAssociationService(BlockRepository blockRepository,
                                      ApartmentRepository apartmentRepository,
                                      AuthenticationService authenticationService,
-                                     BillRepository billRepository) {
+                                     BillRepository billRepository,
+                                     UserRepository userRepository) {
         this.blockRepository = blockRepository;
         this.apartmentRepository = apartmentRepository;
         this.authenticationService = authenticationService;
         this.billRepository = billRepository;
+        this.userRepository = userRepository;
     }
 
     public Block findBlock(Long blockId) {
@@ -73,5 +77,18 @@ public class HousingAssociationService {
         Apartment apartment = findApartment(apartmentId);
         bill.setApartment(apartment);
         billRepository.save(bill);
+    }
+
+    @Transactional
+    @OnlyModerator
+    public Set<User> findAllOccupants() {
+        return userRepository.findAllByRolesContains(authenticationService.findRole(RoleType.USER));
+    }
+
+    @Transactional
+    @OnlyModerator
+    public void updateOccupants(Long apartmentId, Set<User> occupants) {
+        Apartment apartment = findApartment(apartmentId);
+        apartment.addAllOccupants(occupants);
     }
 }

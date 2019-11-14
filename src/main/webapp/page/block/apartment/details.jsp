@@ -55,7 +55,7 @@
     <div class="col s6">
         <h3>
             Occupants
-            <a href="/page/block/details/${apartment.block.id}/apartment/add"
+            <a href="/page/block/details/${apartment.block.id}/apartment/details/${apartment.id}/occupants/edit"
                class="btn-floating btn-small waves-effect waves-light red">
                 <i class="material-icons">add</i>
             </a>

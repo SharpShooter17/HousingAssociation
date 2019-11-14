@@ -14,7 +14,6 @@ import pl.dmcs.bujazdowski.service.HousingAssociationService;
 import javax.faces.bean.RequestScoped;
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Currency;
 
 @Controller
 @RequestScoped

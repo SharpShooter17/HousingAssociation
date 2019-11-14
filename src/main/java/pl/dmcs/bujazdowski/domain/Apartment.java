@@ -1,7 +1,7 @@
 package pl.dmcs.bujazdowski.domain;
 
 import javax.persistence.*;
-import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -18,7 +18,7 @@ public class Apartment
     @Column(name = "NUMBER", nullable = false)
     private Integer number;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinTable(
             name = "APARTMENT_OCCUPANT_T",
             joinColumns = @JoinColumn(name = "APARTMENT_ID"),
@@ -37,6 +37,10 @@ public class Apartment
 
     void locatedInBlock(Block block) {
         this.block = block;
+    }
+
+    public void addAllOccupants(Collection<User> occupants) {
+        this.occupants.addAll(occupants);
     }
 
     public Block getBlock() {

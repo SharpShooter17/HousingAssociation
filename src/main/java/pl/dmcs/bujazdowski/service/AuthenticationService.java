@@ -78,4 +78,8 @@ public class AuthenticationService {
     public Set<Role> findRoles(Set<RoleType> roleTypes) {
         return roleRepository.findAllByNameIn(roleTypes);
     }
+
+    public Role findRole(RoleType roleType) {
+        return roleRepository.findByName(roleType);
+    }
 }
