@@ -10,7 +10,7 @@
 <body>
 <div class="row">
     <div class="col s12">
-        <h3>Users:</h3>
+        <h3>Users</h3>
         <table class="striped centered responsive-table">
             <thead>
             <tr>
@@ -25,7 +25,7 @@
 
             <tbody>
             <c:if test="${users.isEmpty()}">
-                <td colspan="4">No Users Available</td>
+                <td colspan="6">No Users Available</td>
             </c:if>
             <c:forEach items="${users}" var="user">
                 <tr>

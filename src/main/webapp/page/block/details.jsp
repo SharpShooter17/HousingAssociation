@@ -23,7 +23,7 @@
 <div class="row">
     <div class="col s12">
         <h3>
-            Apartments:
+            Apartments
             <a href="/page/block/details/${block.id}/apartment/add"
                class="btn-floating btn-small waves-effect waves-light red">
                 <i class="material-icons">add</i>
@@ -39,11 +39,15 @@
 
             <tbody>
             <c:if test="${block.apartments.isEmpty()}">
-                <td colspan="5">No Apartments Available</td>
+                <td colspan="2">No Apartments Available</td>
             </c:if>
             <c:forEach items="${block.apartments}" var="apartment">
                 <tr>
-                    <td>${apartment.displayName()}</td>
+                    <td>
+                        <a href="/page/block/details/${blockId}/apartment/details/${apartment.id}">
+                                ${apartment.displayName()}
+                        </a>
+                    </td>
                     <td>${apartment.occupants.size()}</td>
                 </tr>
             </c:forEach>

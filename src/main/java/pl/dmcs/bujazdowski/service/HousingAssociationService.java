@@ -1,11 +1,13 @@
 package pl.dmcs.bujazdowski.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import pl.dmcs.bujazdowski.dao.ApartmentRepository;
 import pl.dmcs.bujazdowski.dao.BlockRepository;
-import pl.dmcs.bujazdowski.domain.*;
+import pl.dmcs.bujazdowski.domain.Address;
+import pl.dmcs.bujazdowski.domain.Apartment;
+import pl.dmcs.bujazdowski.domain.Block;
+import pl.dmcs.bujazdowski.domain.User;
 import pl.dmcs.bujazdowski.exception.NotFoundException;
 import pl.dmcs.bujazdowski.security.OnlyAdministrator;
 
@@ -56,5 +58,10 @@ public class HousingAssociationService {
     public Set<Apartment> userApartments() {
         User user = authenticationService.currentUser();
         return this.apartmentRepository.findAllByOccupantsContaining(user);
+    }
+
+    public Apartment findApartment(Long id) {
+        return apartmentRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Not found apartment with id: " + id));
     }
 }

@@ -6,6 +6,7 @@ import pl.dmcs.bujazdowski.domain.Apartment;
 import pl.dmcs.bujazdowski.domain.User;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 import java.util.Set;
 
 @Repository
@@ -13,4 +14,6 @@ import java.util.Set;
 public interface ApartmentRepository extends JpaRepository<Apartment, Long> {
 
     Set<Apartment> findAllByOccupantsContaining(User occupant);
+
+    Optional<Apartment> findById(Long id);
 }

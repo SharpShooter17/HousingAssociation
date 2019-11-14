@@ -10,7 +10,7 @@
 <body>
 <div class="row">
     <div class="col s12">
-        <h3>Blocks:</h3>
+        <h3>Blocks</h3>
         <table class="striped centered responsive-table">
             <thead>
             <tr>

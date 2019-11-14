@@ -35,7 +35,7 @@
 
                 <tbody>
                 <c:if test="${apartments.isEmpty()}">
-                    <td colspan="5">No Apartments Available</td>
+                    <td colspan="2">No Apartments Available</td>
                 </c:if>
                 <c:forEach items="${apartments}" var="apartment">
                     <tr>
@@ -61,7 +61,7 @@
 
                 <tbody>
                 <c:if test="${bills.isEmpty()}">
-                    <td colspan="5">No Bills Available</td>
+                    <td colspan="4">No Bills Available</td>
                 </c:if>
                 <c:forEach items="${bills}" var="bill">
                     <tr>
