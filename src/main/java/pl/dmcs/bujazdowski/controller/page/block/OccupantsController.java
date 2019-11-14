@@ -1,4 +1,4 @@
-package pl.dmcs.bujazdowski.controller.pages.block;
+package pl.dmcs.bujazdowski.controller.page.block;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,7 @@ import java.util.Set;
 
 @Controller
 @RequestScoped
-@RequestMapping(value = "/page/block/details/{blockId}/apartment/details/{apartmentId}/occupants")
+@RequestMapping(value = "/page/block/details/{blockId}/apartment/details/{apartmentId}/occupant")
 public class OccupantsController {
 
     private final String editPath = "/edit";
@@ -31,10 +31,12 @@ public class OccupantsController {
     @RequestMapping(value = editPath)
     public ModelAndView editPage(@PathVariable("blockId") Long blockId,
                                  @PathVariable("apartmentId") Long apartmentId) {
-        ModelAndView modelAndView = new ModelAndView("/page/block/apartment/occupants/edit");
+        ModelAndView modelAndView = new ModelAndView("/page/block/apartment/occupant/edit");
         Apartment apartment = service.findApartment(apartmentId);
         Set<User> availableOccupants = service.findAllOccupants();
-        modelAndView.addObject("occupants", apartment.getOccupants());
+        modelAndView.addObject("blockId", blockId);
+        modelAndView.addObject("apartmentId", apartmentId);
+        modelAndView.addObject("apartment", apartment);
         modelAndView.addObject("availableOccupants", availableOccupants);
         return modelAndView;
     }
@@ -43,8 +45,8 @@ public class OccupantsController {
     @RequestMapping(value = editPath, method = RequestMethod.POST)
     public String editAction(@PathVariable("blockId") Long blockId,
                              @PathVariable("apartmentId") Long apartmentId,
-                             @ModelAttribute("occupants") Set<User> occupants) {
-        service.updateOccupants(apartmentId, occupants);
+                             @ModelAttribute("apartment") Apartment apartment) {
+        service.updateOccupants(apartment);
         return "redirect:/page/block/details/" + blockId + "/apartment/details/" + apartmentId;
     }
 

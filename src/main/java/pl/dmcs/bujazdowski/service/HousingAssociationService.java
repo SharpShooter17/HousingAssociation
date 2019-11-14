@@ -87,8 +87,7 @@ public class HousingAssociationService {
 
     @Transactional
     @OnlyModerator
-    public void updateOccupants(Long apartmentId, Set<User> occupants) {
-        Apartment apartment = findApartment(apartmentId);
-        apartment.addAllOccupants(occupants);
+    public void updateOccupants(Apartment apartment) {
+        apartmentRepository.save(apartment);
     }
 }

@@ -1,4 +1,4 @@
-package pl.dmcs.bujazdowski.controller.pages.user;
+package pl.dmcs.bujazdowski.controller.page.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

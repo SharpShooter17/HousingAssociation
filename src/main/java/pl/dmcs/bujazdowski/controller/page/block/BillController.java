@@ -1,4 +1,4 @@
-package pl.dmcs.bujazdowski.controller.pages.block;
+package pl.dmcs.bujazdowski.controller.page.block;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
