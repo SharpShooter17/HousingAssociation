@@ -11,7 +11,7 @@
 <div class="row">
     <div class="col s3"></div>
     <div class="col s6">
-        <h1>Register</h1>
+        <h2>Register</h2>
         <form:form method="post" action="/page/user/register" modelAttribute="newUser">
             <div class="row">
                 <div class="input-field col s12">

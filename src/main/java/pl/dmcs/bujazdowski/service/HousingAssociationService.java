@@ -3,13 +3,12 @@ package pl.dmcs.bujazdowski.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.dmcs.bujazdowski.dao.ApartmentRepository;
+import pl.dmcs.bujazdowski.dao.BillRepository;
 import pl.dmcs.bujazdowski.dao.BlockRepository;
-import pl.dmcs.bujazdowski.domain.Address;
-import pl.dmcs.bujazdowski.domain.Apartment;
-import pl.dmcs.bujazdowski.domain.Block;
-import pl.dmcs.bujazdowski.domain.User;
+import pl.dmcs.bujazdowski.domain.*;
 import pl.dmcs.bujazdowski.exception.NotFoundException;
 import pl.dmcs.bujazdowski.security.OnlyAdministrator;
+import pl.dmcs.bujazdowski.security.OnlyModerator;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -21,14 +20,17 @@ public class HousingAssociationService {
     private final BlockRepository blockRepository;
     private final ApartmentRepository apartmentRepository;
     private final AuthenticationService authenticationService;
+    private final BillRepository billRepository;
 
     @Autowired
     public HousingAssociationService(BlockRepository blockRepository,
                                      ApartmentRepository apartmentRepository,
-                                     AuthenticationService authenticationService) {
+                                     AuthenticationService authenticationService,
+                                     BillRepository billRepository) {
         this.blockRepository = blockRepository;
         this.apartmentRepository = apartmentRepository;
         this.authenticationService = authenticationService;
+        this.billRepository = billRepository;
     }
 
     public Block findBlock(Long blockId) {
@@ -63,5 +65,13 @@ public class HousingAssociationService {
     public Apartment findApartment(Long id) {
         return apartmentRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Not found apartment with id: " + id));
+    }
+
+    @Transactional
+    @OnlyModerator
+    public void addBill(Long apartmentId, Bill bill) {
+        Apartment apartment = findApartment(apartmentId);
+        bill.setApartment(apartment);
+        billRepository.save(bill);
     }
 }

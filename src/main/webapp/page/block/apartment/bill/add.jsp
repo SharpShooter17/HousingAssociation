@@ -5,21 +5,33 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Apartment</title>
+    <title>Bill</title>
 </head>
 <body>
 
 <div class="row">
     <div class="col s3"></div>
     <div class="col s6">
-        <h2>Add Apartment</h2>
+        <h2>Add Bill</h2>
         <form:form method="post"
-                   action="/page/block/details/${blockId}/apartment/add"
-                   modelAttribute="apartment">
+                   action="/page/block/details/${blockId}/apartment/details/${apartmentId}/bill/add"
+                   modelAttribute="bill">
             <div class="row">
                 <div class="input-field col s12">
-                    <form:label path="number">Number</form:label>
-                    <form:input path="number"/>
+                    <form:select items="${availableTypes}" path="type"/>
+                    <label>Type</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <form:label path="date">Date</form:label>
+                    <form:input path="date" class="datepicker"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <form:label path="amount">Amount</form:label>
+                    <form:input path="amount" type="number" step="0.01"/>
                 </div>
             </div>
 

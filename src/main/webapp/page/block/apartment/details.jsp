@@ -20,32 +20,46 @@
 
 <div class="row">
     <div class="col s6">
-        <h2>Bills</h2>
+        <h3>
+            Bills
+            <a href="/page/block/details/${apartment.block.id}/apartment/details/${apartment.id}/bill/add"
+               class="btn-floating btn-small waves-effect waves-light red">
+                <i class="material-icons">add</i>
+            </a>
+        </h3>
         <table class="striped centered responsive-table">
             <thead>
             <tr>
                 <th>Type</th>
                 <th>Date</th>
                 <th>Amount</th>
+                <th>Vat</th>
             </tr>
             </thead>
 
             <tbody>
             <c:if test="${apartment.bills.isEmpty()}">
-                <td colspan="3">No bills</td>
+                <td colspan="4">No bills</td>
             </c:if>
             <c:forEach items="${apartment.bills}" var="bill">
                 <tr>
                     <td>${bill.type}</td>
                     <td>${bill.date}</td>
                     <td>${bill.amount}</td>
+                    <td><a>Download</a></td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
     </div>
     <div class="col s6">
-        <h2>Occupants</h2>
+        <h3>
+            Occupants
+            <a href="/page/block/details/${apartment.block.id}/apartment/add"
+               class="btn-floating btn-small waves-effect waves-light red">
+                <i class="material-icons">add</i>
+            </a>
+        </h3>
         <table class="striped centered responsive-table">
             <thead>
             <tr>

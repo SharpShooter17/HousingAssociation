@@ -17,7 +17,7 @@ public class Bill
     private LocalDate date;
 
     @Column(name = "AMOUNT", nullable = false)
-    private Currency amount;
+    private Double amount;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "APARTMENT_ID", referencedColumnName = "ID", nullable = false)
@@ -46,11 +46,11 @@ public class Bill
         this.date = date;
     }
 
-    public Currency getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(Currency amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 

@@ -11,7 +11,7 @@
 <div class="row">
     <div class="col s3"></div>
     <div class="col s6">
-        <h1>Add Block</h1>
+        <h2>Add Block</h2>
         <form:form method="post" action="/page/block/add" modelAttribute="address">
             <div class="row">
                 <div class="input-field col s12">
