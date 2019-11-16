@@ -34,8 +34,12 @@
                     <td>${user.lastName}</td>
                     <td><a href="/user/${user.id}">${user.email}</a></td>
                     <td>${user.telephone}</td>
-                    <td>${user.displayRoles()}</td>
-                    <td>${user.isEnabled()}</td>
+                    <td>
+                        <c:forEach items="${user.roles}" var="role">
+                            <spring:message code="role.name.${role.name.name()}"/>,
+                        </c:forEach>
+                    </td>
+                    <td><spring:message code="label.enabled-code.${user.isEnabled()}"/></td>
                 </tr>
             </c:forEach>
             </tbody>

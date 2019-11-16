@@ -59,7 +59,7 @@
     </div>
     <div class="col s6">
         <h3>
-            Occupants
+            <spring:message code="header.occupants"/>
             <a href="/page/block/details/${apartment.block.id}/apartment/details/${apartment.id}/occupant/edit"
                class="btn-floating btn-small waves-effect waves-light red">
                 <i class="material-icons">add</i>

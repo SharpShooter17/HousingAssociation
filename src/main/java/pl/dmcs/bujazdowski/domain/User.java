@@ -8,6 +8,7 @@ import pl.dmcs.bujazdowski.exception.TokenExpiredException;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.xml.ws.handler.MessageContext;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -93,6 +94,10 @@ public class User extends BaseEntity implements UserDetails {
                 .map(Role::getName)
                 .map(RoleType::name)
                 .collect(Collectors.joining(", "));
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
     }
 
     String token() {
