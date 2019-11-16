@@ -82,4 +82,14 @@ public class AuthenticationService {
     public Role findRole(RoleType roleType) {
         return roleRepository.findByName(roleType);
     }
+
+    @Transactional
+    public void edition(User user) {
+        userRepository.save(user);
+    }
+
+    @Transactional
+    public void remove(Long userId) {
+        userRepository.delete(userId);
+    }
 }

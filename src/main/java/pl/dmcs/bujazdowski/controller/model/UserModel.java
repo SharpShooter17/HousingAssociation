@@ -5,12 +5,12 @@ import pl.dmcs.bujazdowski.domain.User;
 
 import java.util.Objects;
 
-public class NewUserModel {
+public class UserModel {
 
     private User user = new User();
     private RoleType[] roles = new RoleType[]{RoleType.USER};
 
-    public NewUserModel() {
+    public UserModel() {
     }
 
     public User getUser() {
@@ -33,7 +33,7 @@ public class NewUserModel {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        NewUserModel that = (NewUserModel) o;
+        UserModel that = (UserModel) o;
         return Objects.equals(user, that.user) &&
                 Objects.equals(roles, that.roles);
     }
@@ -45,7 +45,7 @@ public class NewUserModel {
 
     @Override
     public String toString() {
-        return "NewUserModel{" +
+        return "UserModel{" +
                 "user=" + user +
                 ", roles=" + roles +
                 '}';

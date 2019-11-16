@@ -9,6 +9,7 @@ import pl.dmcs.bujazdowski.dao.UserRepository;
 import pl.dmcs.bujazdowski.domain.*;
 import pl.dmcs.bujazdowski.exception.AuthorizationException;
 import pl.dmcs.bujazdowski.exception.NotFoundException;
+import pl.dmcs.bujazdowski.exception.UserNotFoundException;
 import pl.dmcs.bujazdowski.security.OnlyAdministrator;
 import pl.dmcs.bujazdowski.security.OnlyModerator;
 
@@ -109,5 +110,14 @@ public class HousingAssociationService {
                 .findFirst()
                 .orElseThrow(() -> new AuthorizationException(user));
         return reportService.prepareReport(bill);
+    }
+
+    public List<User> findAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public User findUser(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException(userId));
     }
 }

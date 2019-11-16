@@ -25,6 +25,12 @@
         <put-attribute name="content" value="/page/user/register.jsp"/>
     </definition>
 
+    <definition name="/page/user/edit"
+                extends="base.definition">
+        <put-attribute name="title" value="Edit"/>
+        <put-attribute name="content" value="/page/user/edit.jsp"/>
+    </definition>
+
     <definition name="/page/user/activate"
                 extends="base.definition">
         <put-attribute name="title" value="Activate account"/>
