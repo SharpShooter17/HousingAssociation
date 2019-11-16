@@ -68,7 +68,7 @@
                 <c:forEach items="${bills}" var="bill">
                     <tr>
                         <td>${bill.displayName()}</td>
-                        <td>${bill.type}</td>
+                        <td><spring:message code="billing.type.${bill.type}"/></td>
                         <td>${bill.date}</td>
                         <td>${bill.amount}</td>
                         <td>
