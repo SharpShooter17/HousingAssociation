@@ -1,44 +1,45 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Blocks</title>
+    <title><spring:message code="header.blocks"/></title>
 </head>
 <body>
 <div class="row">
     <div class="col s3"></div>
     <div class="col s6">
-        <h2>Add Block</h2>
+        <h2><spring:message code="label.add-block"/></h2>
         <form:form method="post" action="/page/block/add" modelAttribute="address">
             <div class="row">
                 <div class="input-field col s12">
-                    <form:label path="city">City</form:label>
+                    <form:label path="city"><spring:message code="label.city"/></form:label>
                     <form:input path="city"/>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <form:label path="zipCode">Zip Code</form:label>
+                    <form:label path="zipCode"><spring:message code="label.postal-code"/></form:label>
                     <form:input path="zipCode"/>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <form:label path="street">Street</form:label>
+                    <form:label path="street"><spring:message code="label.street"/></form:label>
                     <form:input path="street"/>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <form:label path="number">Number</form:label>
+                    <form:label path="number"><spring:message code="label.number"/></form:label>
                     <form:input path="number"/>
                 </div>
             </div>
             <div class="row">
-                <button class="btn waves-effect waves-light" type="submit">Add Block
+                <button class="btn waves-effect waves-light" type="submit"><spring:message code="button.add-block"/>
                     <i class="material-icons right">send</i>
                 </button>
             </div>

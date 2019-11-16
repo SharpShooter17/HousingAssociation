@@ -1,6 +1,8 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="th" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -23,39 +25,44 @@
 <body>
 <ul id="dropdownMenu" class="dropdown-content">
     <sec:authorize access="hasAnyAuthority('ADMINISTRATOR', 'MODERATOR')">
-        <li><a href="/page/user/list">Users</a></li>
+        <li><a href="/page/user/list"><spring:message code="menu.users"/></a></li>
     </sec:authorize>
     <sec:authorize access="hasAuthority('ADMINISTRATOR')">
-        <li><a href="/page/user/register">Register user</a></li>
+        <li><a href="/page/user/register"><spring:message code="menu.register-user"/></a></li>
     </sec:authorize>
     <li class="divider"></li>
     <sec:authorize access="hasAnyAuthority('ADMINISTRATOR', 'MODERATOR')">
-        <li><a href="/page/block/list">Blocks</a></li>
+        <li><a href="/page/block/list"><spring:message code="menu.blocks"/></a></li>
     </sec:authorize>
     <sec:authorize access="hasAuthority('ADMINISTRATOR')">
-        <li><a href="/page/block/add">Add block</a></li>
+        <li><a href="/page/block/add"><spring:message code="menu.add-block"/></a></li>
     </sec:authorize>
 </ul>
 <nav class="light-blue lighten-1" role="navigation">
     <div class="nav-wrapper container">
-        <a id="logo-container" href="/page/home" class="brand-logo">HOUSING ASSOCIATION</a>
-        <sec:authorize access="isAuthenticated()">
+        <a id="logo-container" href="/page/home" class="brand-logo"><spring:message code="page.title"/></a>
 
-            <ul class="right hide-on-med-and-down">
-                <li>
-                    <a class="dropdown-trigger" href="#!" data-target="dropdownMenu">
-                        Menu<i class="material-icons right">arrow_drop_down</i>
-                    </a>
-                </li>
+        <ul class="right hide-on-med-and-down">
+            <sec:authorize access="isAuthenticated()">
+
+                <sec:authorize access="hasAnyAuthority('ADMINISTRATOR', 'MODERATOR')">
+                    <li>
+                        <a class="dropdown-trigger" href="#!" data-target="dropdownMenu">
+                            <spring:message code="menu.menu"/>
+                            <i class="material-icons right">arrow_drop_down</i>
+                        </a>
+                    </li>
+                </sec:authorize>
                 <li>
                     <sec:authentication property="principal.username"/>
                 </li>
                 <li>
-                    <a href="/perform_logout">Logout</a>
+                    <a href="/perform_logout"><spring:message code="label.logout"/></a>
                 </li>
-            </ul>
-            <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-        </sec:authorize>
+            </sec:authorize>
+            <li><a href="?lang=pl">PL</a></li>
+            <li><a href="?lang=en">EN</a></li>
+        </ul>
     </div>
 </nav>
 

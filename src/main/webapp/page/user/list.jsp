@@ -1,31 +1,32 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Users</title>
+    <title><spring:message code="header.users"/></title>
 </head>
 <body>
 <div class="row">
     <div class="col s12">
-        <h3>Users</h3>
+        <h3><spring:message code="header.users"/></h3>
         <table class="striped centered responsive-table">
             <thead>
             <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Telephone</th>
-                <th>Roles</th>
-                <th>Is enabled</th>
+                <th><spring:message code="label.name"/></th>
+                <th><spring:message code="label.lastname"/></th>
+                <th><spring:message code="label.email"/></th>
+                <th><spring:message code="label.telephone"/></th>
+                <th><spring:message code="label.roles"/></th>
+                <th><spring:message code="label.enabled"/></th>
             </tr>
             </thead>
 
             <tbody>
             <c:if test="${users.isEmpty()}">
-                <td colspan="6">No Users Available</td>
+                <td colspan="6"><spring:message code="label.users-not-available"/></td>
             </c:if>
             <c:forEach items="${users}" var="user">
                 <tr>

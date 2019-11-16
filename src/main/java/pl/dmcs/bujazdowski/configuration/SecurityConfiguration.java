@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import pl.dmcs.bujazdowski.domain.RoleType;
 
 @Configuration
 @EnableWebSecurity
@@ -38,7 +37,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/admin/**").hasAuthority(RoleType.ADMINISTRATOR.name())
                 .antMatchers("/login*", "/page/user/activate/**", "/resources/**", "/perform_login*").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -49,13 +47,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")
                 .defaultSuccessUrl("/page/home", true)
                 .failureUrl("/login.html?error=true")
-//                .failureHandler(authenticationFailureHandler())
                 .and()
                 .logout()
                 .logoutUrl("/perform_logout")
                 .deleteCookies("JSESSIONID")
                 .logoutSuccessUrl("/login.html");
-//                .logoutSuccessHandler(logoutSuccessHandler());
     }
 
 }
