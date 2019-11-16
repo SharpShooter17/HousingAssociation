@@ -46,7 +46,11 @@
                     <td>${bill.type}</td>
                     <td>${bill.date}</td>
                     <td>${bill.amount}</td>
-                    <td><a>Download</a></td>
+                    <td>
+                        <a href="/page/block/details/${apartment.block.id}/apartment/details/${apartment.id}/bill/download/${bill.id}">
+                            Download
+                        </a>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>

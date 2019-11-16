@@ -9,9 +9,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import pl.dmcs.bujazdowski.domain.Bill;
 import pl.dmcs.bujazdowski.domain.BillingType;
+import pl.dmcs.bujazdowski.exception.ApplicationException;
 import pl.dmcs.bujazdowski.service.HousingAssociationService;
 
 import javax.faces.bean.RequestScoped;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.Arrays;
 
@@ -51,5 +57,19 @@ public class BillController {
                             @ModelAttribute("bill") Bill bill) {
         service.addBill(apartmentId, bill);
         return "redirect:/page/block/details/" + blockId + "/apartment/details/" + apartmentId;
+    }
+
+    @RequestMapping(value = "/download/{billId}")
+    public void download(@PathVariable("billId") Long billId,
+                         HttpServletResponse response) {
+        ByteArrayOutputStream file = service.downloadBillReport(billId);
+        try {
+            InputStream inputStream = new ByteArrayInputStream(file.toByteArray());
+            response.setContentType("application/pdf");
+            org.apache.commons.io.IOUtils.copy(inputStream, response.getOutputStream());
+            response.flushBuffer();
+        } catch (IOException ex) {
+            throw new ApplicationException("IOError writing file to output stream");
+        }
     }
 }

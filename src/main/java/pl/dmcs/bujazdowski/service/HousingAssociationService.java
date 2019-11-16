@@ -7,11 +7,13 @@ import pl.dmcs.bujazdowski.dao.BillRepository;
 import pl.dmcs.bujazdowski.dao.BlockRepository;
 import pl.dmcs.bujazdowski.dao.UserRepository;
 import pl.dmcs.bujazdowski.domain.*;
+import pl.dmcs.bujazdowski.exception.AuthorizationException;
 import pl.dmcs.bujazdowski.exception.NotFoundException;
 import pl.dmcs.bujazdowski.security.OnlyAdministrator;
 import pl.dmcs.bujazdowski.security.OnlyModerator;
 
 import javax.transaction.Transactional;
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 import java.util.Set;
 
@@ -23,18 +25,21 @@ public class HousingAssociationService {
     private final AuthenticationService authenticationService;
     private final BillRepository billRepository;
     private final UserRepository userRepository;
+    private final ReportService reportService;
 
     @Autowired
     public HousingAssociationService(BlockRepository blockRepository,
                                      ApartmentRepository apartmentRepository,
                                      AuthenticationService authenticationService,
                                      BillRepository billRepository,
-                                     UserRepository userRepository) {
+                                     UserRepository userRepository,
+                                     ReportService reportService) {
         this.blockRepository = blockRepository;
         this.apartmentRepository = apartmentRepository;
         this.authenticationService = authenticationService;
         this.billRepository = billRepository;
         this.userRepository = userRepository;
+        this.reportService = reportService;
     }
 
     public Block findBlock(Long blockId) {
@@ -92,5 +97,17 @@ public class HousingAssociationService {
         Set<User> occupants = userRepository.findAllByEmailIn(occupantEmails);
         apartment.setOccupants(occupants);
         apartmentRepository.save(apartment);
+    }
+
+    @Transactional
+    public ByteArrayOutputStream downloadBillReport(Long billId) {
+        User user = authenticationService.currentUser();
+        Set<Apartment> userApartments = apartmentRepository.findAllByOccupantsContaining(user);
+        Bill bill = userApartments.stream()
+                .flatMap(apartment -> apartment.getBills().stream())
+                .filter(b -> b.getId().equals(billId))
+                .findFirst()
+                .orElseThrow(() -> new AuthorizationException(user));
+        return reportService.prepareReport(bill);
     }
 }
