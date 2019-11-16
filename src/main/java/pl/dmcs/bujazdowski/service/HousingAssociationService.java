@@ -87,7 +87,10 @@ public class HousingAssociationService {
 
     @Transactional
     @OnlyModerator
-    public void updateOccupants(Apartment apartment) {
+    public void updateOccupants(Long apartmentId, Set<String> occupantEmails) {
+        Apartment apartment = findApartment(apartmentId);
+        Set<User> occupants = userRepository.findAllByEmailIn(occupantEmails);
+        apartment.setOccupants(occupants);
         apartmentRepository.save(apartment);
     }
 }

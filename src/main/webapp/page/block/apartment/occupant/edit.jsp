@@ -14,15 +14,15 @@
     <div class="col s6">
         <h2>Edit occupants</h2>
         <form:form method="post"
-                   action="/page/block/details/${blockId}/apartment/details/${apartmentId}/occupant/edit"
-                   modelAttribute="apartment">
+                   modelAttribute="occupantModel"
+                   action="/page/block/details/${blockId}/apartment/details/${apartmentId}/occupant/edit">
             <div class="row">
                 <div class="input-field col s12">
-                    <form:checkboxes cssStyle="display: block" items="${availableOccupants}" path="occupants"/>
+                    <form:checkboxes cssStyle="display: block" items="${availableOccupants}" path="occupantEmails"/>
                 </div>
             </div>
             <div class="row">
-                <button class="btn waves-effect waves-light" type="submit">Add Apartment
+                <button class="btn waves-effect waves-light" type="submit">Save
                     <i class="material-icons right">send</i>
                 </button>
             </div>
