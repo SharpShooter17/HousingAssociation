@@ -1,17 +1,23 @@
 package pl.dmcs.bujazdowski.factory;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import pl.dmcs.bujazdowski.dao.RoleRepository;
-import pl.dmcs.bujazdowski.domain.RoleType;
+import pl.dmcs.bujazdowski.controller.model.UserModel;
 import pl.dmcs.bujazdowski.domain.User;
+import pl.dmcs.bujazdowski.service.AuthenticationService;
 
-@Component
 public class UserFactory {
 
-    public void createNewUser(User user) {
+    private final AuthenticationService authenticationService;
+
+    public UserFactory(AuthenticationService authenticationService) {
+        this.authenticationService = authenticationService;
+    }
+
+    public User createNewUser(UserModel userModel) {
+        User user = new User();
+        authenticationService.mapUser(userModel, user);
         user.disable();
         user.generateToken();
+        return user;
     }
 
 }

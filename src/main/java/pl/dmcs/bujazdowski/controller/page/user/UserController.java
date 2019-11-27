@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.dmcs.bujazdowski.controller.model.UserModel;
-import pl.dmcs.bujazdowski.domain.Role;
 import pl.dmcs.bujazdowski.domain.RoleType;
 import pl.dmcs.bujazdowski.domain.User;
 import pl.dmcs.bujazdowski.service.AuthenticationService;
@@ -16,7 +15,6 @@ import pl.dmcs.bujazdowski.service.HousingAssociationService;
 
 import javax.faces.bean.RequestScoped;
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestScoped
@@ -33,7 +31,8 @@ public class UserController {
     private final String removePath = "/remove";
 
     @Autowired
-    public UserController(AuthenticationService authenticationService, HousingAssociationService service) {
+    public UserController(AuthenticationService authenticationService,
+                          HousingAssociationService service) {
         this.authenticationService = authenticationService;
         this.service = service;
     }
@@ -53,9 +52,7 @@ public class UserController {
 
     @RequestMapping(value = registerPath, method = RequestMethod.POST)
     public String registerAction(@ModelAttribute("user") UserModel user) {
-        authenticationService.findRoles(Arrays.stream(user.getRoles()).collect(Collectors.toSet()))
-                .forEach(role -> user.getUser().addRole(role));
-        authenticationService.registration(user.getUser());
+        authenticationService.registration(user);
         return "redirect:" + basePath + listPath;
     }
 
@@ -64,18 +61,18 @@ public class UserController {
                            Model model) {
         User user = service.findUser(userId);
         UserModel userModel = new UserModel();
-        userModel.setUser(user);
-        userModel.setRoles(user.getRoles().stream().map(Role::getName).distinct().toArray(RoleType[]::new));
+        authenticationService.mapUser(user, userModel);
+
         model.addAttribute("userModel", userModel);
+        model.addAttribute("userId", userId);
         model.addAttribute("availableRoles", Arrays.asList(RoleType.values()));
         return basePath + editPath;
     }
 
-    @RequestMapping(value = editPath, method = RequestMethod.POST)
-    public String editAction(@ModelAttribute("userModel") UserModel user) {
-        authenticationService.findRoles(Arrays.stream(user.getRoles()).collect(Collectors.toSet()))
-                .forEach(role -> user.getUser().addRole(role));
-        authenticationService.edition(user.getUser());
+    @RequestMapping(value = editPath + "/{userId}", method = RequestMethod.POST)
+    public String editAction(@ModelAttribute("userModel") UserModel user,
+                             @PathVariable("userId") Long userId) {
+        authenticationService.edition(userId, user);
         return "redirect:" + basePath + listPath;
     }
 

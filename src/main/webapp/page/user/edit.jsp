@@ -15,37 +15,38 @@
     <div class="col s3"></div>
     <div class="col s6">
         <h2><spring:message code="header.edit"/></h2>
-        <form:form method="post" action="/page/user/edit/${user.id}" modelAttribute="userModel">
-            <form:hidden path="user.id"/>
+        <form:form method="post"
+                   action="/page/user/edit/${userId}"
+                   modelAttribute="userModel">
             <div class="row">
                 <div class="input-field col s12">
-                    <form:label path="user.firstName"><spring:message code="label.name"/></form:label>
-                    <form:input path="user.firstName"/>
+                    <form:label path="firstName"><spring:message code="label.name"/></form:label>
+                    <form:input path="firstName"/>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <form:label path="user.lastName"><spring:message code="label.lastname"/></form:label>
-                    <form:input path="user.lastName"/>
+                    <form:label path="lastName"><spring:message code="label.lastname"/></form:label>
+                    <form:input path="lastName"/>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <form:label path="user.email"><spring:message code="label.email"/></form:label>
-                    <form:input path="user.email"/>
+                    <form:label path="email"><spring:message code="label.email"/></form:label>
+                    <form:input path="email"/>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <form:label path="user.telephone"><spring:message code="label.telephone"/></form:label>
-                    <form:input path="user.telephone"/>
+                    <form:label path="telephone"><spring:message code="label.telephone"/></form:label>
+                    <form:input path="telephone"/>
                 </div>
             </div>
             <sec:authorize access="hasAuthority('MODERATOR')">
                 <div class="row">
                     <div class="input-field col s12">
                         <spring:message code="label.roles"/>
-                        <form:checkboxes path="roles" items="${availableRoles}"/>
+                        <form:checkboxes path="userRoles" items="${availableRoles}"/>
                     </div>
                 </div>
             </sec:authorize>

@@ -2,6 +2,7 @@ package pl.dmcs.bujazdowski.domain;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import pl.dmcs.bujazdowski.controller.model.UserModel;
 import pl.dmcs.bujazdowski.exception.InvalidTokenException;
 import pl.dmcs.bujazdowski.exception.TokenExpiredException;
 
@@ -15,7 +16,9 @@ import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "USER_T")
-public class User extends BaseEntity implements UserDetails {
+public class User
+        extends BaseEntity
+        implements UserDetails, UserAppI {
 
     private final static int daysToTokenExpiration = 7;
 
@@ -54,6 +57,7 @@ public class User extends BaseEntity implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
     private Set<Role> roles = new HashSet<>();
 
+    @Override
     public void addRole(Role role) {
         roles.add(role);
     }
@@ -96,6 +100,7 @@ public class User extends BaseEntity implements UserDetails {
                 .collect(Collectors.joining(", "));
     }
 
+    @Override
     public Set<Role> getRoles() {
         return roles;
     }
@@ -108,34 +113,42 @@ public class User extends BaseEntity implements UserDetails {
         return this.tokenExpirationDate;
     }
 
+    @Override
     public String getFirstName() {
         return firstName;
     }
 
+    @Override
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    @Override
     public String getLastName() {
         return lastName;
     }
 
+    @Override
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    @Override
     public String getEmail() {
         return email;
     }
 
+    @Override
     public void setEmail(String email) {
         this.email = email.toLowerCase();
     }
 
+    @Override
     public String getTelephone() {
         return telephone;
     }
 
+    @Override
     public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
