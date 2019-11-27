@@ -59,6 +59,7 @@ public class UserController {
     @RequestMapping(value = editPath + "/{userId}", method = RequestMethod.GET)
     public String editPage(@PathVariable("userId") Long userId,
                            Model model) {
+        authenticationService.validateIfCurrentUserOrAdministrator(userId);
         User user = service.findUser(userId);
         UserModel userModel = new UserModel();
         authenticationService.mapUser(user, userModel);
@@ -73,7 +74,11 @@ public class UserController {
     public String editAction(@ModelAttribute("userModel") UserModel user,
                              @PathVariable("userId") Long userId) {
         authenticationService.edition(userId, user);
-        return "redirect:" + basePath + listPath;
+        if (authenticationService.currentUser().getRoles().stream().anyMatch(role -> role.getName().equals(RoleType.MODERATOR))) {
+            return "redirect:" + basePath + listPath;
+        } else {
+            return "redirect:/page/home";
+        }
     }
 
     @RequestMapping(value = removePath + "/{userId}", method = RequestMethod.POST)

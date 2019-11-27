@@ -9,6 +9,7 @@ import pl.dmcs.bujazdowski.controller.model.UserModel;
 import pl.dmcs.bujazdowski.dao.RoleRepository;
 import pl.dmcs.bujazdowski.dao.UserRepository;
 import pl.dmcs.bujazdowski.domain.*;
+import pl.dmcs.bujazdowski.exception.AuthorizationException;
 import pl.dmcs.bujazdowski.exception.UserAlreadyExists;
 import pl.dmcs.bujazdowski.exception.UserNotFoundException;
 import pl.dmcs.bujazdowski.factory.UserFactory;
@@ -87,12 +88,26 @@ public class AuthenticationService {
 
     @Transactional
     public void edition(Long userId, UserModel userModel) {
+        validateIfCurrentUserOrAdministrator(userId);
         User user = findUser(userId);
         mapUser(userModel, user);
         userRepository.save(user);
     }
 
+    public boolean isCurrentUserOrAdministrator(Long userId) {
+        User currentUser = currentUser();
+        return currentUser.getId().equals(userId) ||
+                currentUser.getRoles().stream().anyMatch(role -> role.getName().equals(RoleType.ADMINISTRATOR));
+    }
+
+    public void validateIfCurrentUserOrAdministrator(Long userId) {
+        if (!isCurrentUserOrAdministrator(userId)) {
+            throw new AuthorizationException(currentUser());
+        }
+    }
+
     @Transactional
+    @OnlyAdministrator
     public void remove(Long userId) {
         userRepository.delete(userId);
     }

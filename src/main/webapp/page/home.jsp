@@ -20,6 +20,9 @@
                 <p><spring:message code="label.telephone"/>: <sec:authentication property="principal.telephone"/></p>
                 <p><spring:message code="label.email"/>: <sec:authentication property="principal.email"/></p>
             </div>
+            <div class="card-action">
+                <a href="/page/user/edit/${userId}">Edit</a>
+            </div>
         </div>
     </div>
 </div>
