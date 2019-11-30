@@ -6,9 +6,14 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import pl.dmcs.bujazdowski.domain.UserAppI;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class UserValidator implements Validator {
 
     private EmailValidator emailValidator = EmailValidator.getInstance();
+
+    private final Pattern telephonePattern = Pattern.compile("(\\+\\d{2})(\\d{9})");
 
     @Override
     public boolean supports(Class<?> aClass) {
@@ -27,6 +32,9 @@ public class UserValidator implements Validator {
         if (errors.getErrorCount() == 0) {
             if (!emailValidator.isValid(userAppI.getEmail())) {
                 errors.rejectValue("email", "error.email.invalid");
+            }
+            if (!telephonePattern.matcher(userAppI.getTelephone()).matches()) {
+                errors.rejectValue("telephone", "error.telephone.invalid");
             }
         }
     }
