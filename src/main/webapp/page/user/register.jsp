@@ -14,6 +14,7 @@
     <div class="col s6">
         <h2><spring:message code="header.register"/></h2>
         <form:form method="post" action="/page/user/register" modelAttribute="userModel">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
             <div class="row">
                 <div class="input-field col s12">
                     <form:label path="firstName"><spring:message code="label.name"/></form:label>

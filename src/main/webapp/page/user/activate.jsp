@@ -16,6 +16,7 @@
                cssClass="col s6">
         <h1><spring:message code="header.activate-account"/></h1>
 
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
         <form:input path="userId" id="userId" type="hidden" cssClass="validate"/>
 
         <div class="row">

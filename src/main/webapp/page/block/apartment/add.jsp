@@ -17,6 +17,7 @@
         <form:form method="post"
                    action="/page/block/details/${blockId}/apartment/add"
                    modelAttribute="apartment">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
             <div class="row">
                 <div class="input-field col s12">
                     <form:label path="number"><spring:message code="label.number"/></form:label>

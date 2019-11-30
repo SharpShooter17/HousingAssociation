@@ -17,6 +17,7 @@
         <form:form method="post"
                    action="/page/block/details/${blockId}/apartment/details/${apartmentId}/bill/add"
                    modelAttribute="bill">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
             <div class="row">
                 <div class="input-field col s12">
                     <form:select items="${availableTypes}" path="type"/>

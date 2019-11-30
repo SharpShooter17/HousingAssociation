@@ -5,14 +5,17 @@
 <head>
     <title><spring:message code="header.login"/></title>
 </head>
-<body>
+<body onload="document.login_form.email.focus()">
 <div class="row">
     <div class="col s3"></div>
-    <form id="login-form"
+    <form id="login_form"
           method="POST"
           action="perform_login"
           class="col s6">
         <h1><spring:message code="header.login"/></h1>
+
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+
         <div class="row">
             <div class="input-field col s12">
                 <input id="email" name="email" type="email" class="validate"/>

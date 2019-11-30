@@ -23,6 +23,15 @@
     </style>
 </head>
 <body>
+<script type="text/javascript">
+    function logout() {
+        document.getElementById('logoutForm').submit();
+    }
+</script>
+<form action="/perform_logout" method="post" id="logoutForm">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+</form>
+
 <ul id="dropdownMenu" class="dropdown-content">
     <sec:authorize access="hasAnyAuthority('ADMINISTRATOR', 'MODERATOR')">
         <li><a href="/page/user/list"><spring:message code="menu.users"/></a></li>
@@ -57,7 +66,7 @@
                     <sec:authentication property="principal.username"/>
                 </li>
                 <li>
-                    <a href="/perform_logout"><spring:message code="label.logout"/></a>
+                    <a href="javascript:logout()"><spring:message code="label.logout"/></a>
                 </li>
             </sec:authorize>
             <li><a href="?lang=pl">PL</a></li>

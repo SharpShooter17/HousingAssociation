@@ -17,6 +17,7 @@
         <form:form method="post"
                    modelAttribute="occupantModel"
                    action="/page/block/details/${blockId}/apartment/details/${apartmentId}/occupant/edit">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
             <div class="row">
                 <div class="input-field col s12">
                     <form:checkboxes cssStyle="display: block" items="${availableOccupants}" path="occupantEmails"/>

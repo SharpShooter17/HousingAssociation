@@ -18,6 +18,7 @@
         <form:form method="post"
                    action="/page/user/edit/${userId}"
                    modelAttribute="userModel">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
             <div class="row">
                 <div class="input-field col s12">
                     <form:label path="firstName"><spring:message code="label.name"/></form:label>
