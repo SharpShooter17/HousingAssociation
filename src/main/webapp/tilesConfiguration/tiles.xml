@@ -91,4 +91,10 @@
         <put-attribute name="content" value="/page/home.jsp"/>
     </definition>
 
+    <definition name="/error/accessDenied"
+                extends="base.definition">
+        <put-attribute name="title" value="accessDenied"/>
+        <put-attribute name="content" value="/error/accessDenied.jsp"/>
+    </definition>
+
 </tiles-definitions>

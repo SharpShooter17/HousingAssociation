@@ -45,7 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("/login*", "/page/user/activate/**", "/resources/**", "/perform_login*").permitAll()
+                .antMatchers("/login*", "/page/user/activate/**", "/resources/**", "/perform_login*", "/error/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -59,7 +59,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutUrl("/perform_logout")
                 .deleteCookies("JSESSIONID")
-                .logoutSuccessUrl("/login.html");
+                .logoutSuccessUrl("/login.html?logout=true")
+                .and()
+                .exceptionHandling()
+                .accessDeniedPage("/error/accessDenied");
     }
 
 }

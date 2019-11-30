@@ -1,6 +1,7 @@
 package pl.dmcs.bujazdowski.controller.page.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import pl.dmcs.bujazdowski.controller.model.UserModel;
 import pl.dmcs.bujazdowski.domain.RoleType;
 import pl.dmcs.bujazdowski.domain.User;
+import pl.dmcs.bujazdowski.security.OnlyAdministrator;
 import pl.dmcs.bujazdowski.service.AuthenticationService;
 import pl.dmcs.bujazdowski.service.HousingAssociationService;
 import pl.dmcs.bujazdowski.validator.UserValidator;
