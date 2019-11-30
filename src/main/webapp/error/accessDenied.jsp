@@ -5,6 +5,7 @@
 <head>
     <title><spring:message code="header.accessDenied"/></title>
 </head>
+<body>
 <div class="row">
     <div class="col s2"></div>
     <div class="col s8">
