@@ -18,24 +18,28 @@
                 <div class="input-field col s12">
                     <form:label path="firstName"><spring:message code="label.name"/></form:label>
                     <form:input path="firstName"/>
+                    <form:errors path="firstName"/>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
                     <form:label path="lastName"><spring:message code="label.lastname"/></form:label>
                     <form:input path="lastName"/>
+                    <form:errors path="lastName"/>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
                     <form:label path="email"><spring:message code="label.email"/></form:label>
                     <form:input path="email"/>
+                    <form:errors path="email"/>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
                     <form:label path="telephone"><spring:message code="label.telephone"/></form:label>
                     <form:input path="telephone"/>
+                    <form:errors path="telephone"/>
                 </div>
             </div>
             <div class="row">

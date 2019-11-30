@@ -31,7 +31,7 @@ public class User
     private String lastName;
 
     @Email(message = "Email is not valid!")
-    @Column(name = "EMAIL", nullable = false)
+    @Column(name = "EMAIL", nullable = false, unique = true)
     private String email;
 
     @NotBlank

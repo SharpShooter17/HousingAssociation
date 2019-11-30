@@ -3,6 +3,7 @@ package pl.dmcs.bujazdowski.controller.page.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import pl.dmcs.bujazdowski.domain.RoleType;
 import pl.dmcs.bujazdowski.domain.User;
 import pl.dmcs.bujazdowski.service.AuthenticationService;
 import pl.dmcs.bujazdowski.service.HousingAssociationService;
+import pl.dmcs.bujazdowski.validator.UserValidator;
 
 import javax.faces.bean.RequestScoped;
 import java.util.Arrays;
@@ -21,6 +23,7 @@ import java.util.Arrays;
 @RequestMapping(value = "/page/user")
 public class UserController {
 
+    private final UserValidator userValidator = new UserValidator();
     private final AuthenticationService authenticationService;
     private final HousingAssociationService service;
 
@@ -51,9 +54,16 @@ public class UserController {
     }
 
     @RequestMapping(value = registerPath, method = RequestMethod.POST)
-    public String registerAction(@ModelAttribute("user") UserModel user) {
-        authenticationService.registration(user);
-        return "redirect:" + basePath + listPath;
+    public String registerAction(@ModelAttribute("user") UserModel user,
+                                 BindingResult bindingResult,
+                                 Model model) {
+        userValidator.validate(user, bindingResult);
+        if (!bindingResult.hasErrors()) {
+            authenticationService.registration(user);
+            return "redirect:" + basePath + listPath;
+        }
+        prepareUserModel(model, user, null);
+        return basePath + registerPath;
     }
 
     @RequestMapping(value = editPath + "/{userId}", method = RequestMethod.GET)
@@ -64,21 +74,34 @@ public class UserController {
         UserModel userModel = new UserModel();
         authenticationService.mapUser(user, userModel);
 
+        prepareUserModel(model, userModel, userId);
+        return basePath + editPath;
+    }
+
+    private void prepareUserModel(Model model, UserModel userModel, Long userId) {
         model.addAttribute("userModel", userModel);
         model.addAttribute("userId", userId);
         model.addAttribute("availableRoles", Arrays.asList(RoleType.values()));
-        return basePath + editPath;
     }
 
     @RequestMapping(value = editPath + "/{userId}", method = RequestMethod.POST)
     public String editAction(@ModelAttribute("userModel") UserModel user,
-                             @PathVariable("userId") Long userId) {
-        authenticationService.edition(userId, user);
-        if (authenticationService.currentUser().getRoles().stream().anyMatch(role -> role.getName().equals(RoleType.MODERATOR))) {
-            return "redirect:" + basePath + listPath;
-        } else {
-            return "redirect:/page/home";
+                             @PathVariable("userId") Long userId,
+                             BindingResult bindingResult,
+                             Model model) {
+        userValidator.validate(user, bindingResult);
+
+        if (bindingResult.getErrorCount() == 0) {
+            authenticationService.edition(userId, user);
+            if (authenticationService.currentUser().getRoles().stream().anyMatch(role -> role.getName().equals(RoleType.MODERATOR))) {
+                return "redirect:" + basePath + listPath;
+            } else {
+                return "redirect:/page/home";
+            }
         }
+
+        prepareUserModel(model, user, userId);
+        return "/page/user/edit";
     }
 
     @RequestMapping(value = removePath + "/{userId}", method = RequestMethod.POST)
