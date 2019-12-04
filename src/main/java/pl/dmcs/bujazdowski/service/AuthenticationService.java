@@ -1,6 +1,7 @@
 package pl.dmcs.bujazdowski.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +17,8 @@ import pl.dmcs.bujazdowski.factory.UserFactory;
 import pl.dmcs.bujazdowski.security.OnlyAdministrator;
 
 import javax.transaction.Transactional;
+import java.net.Inet4Address;
+import java.net.UnknownHostException;
 import java.util.Set;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -31,16 +34,23 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
 
+    @Value("${server.port}")
+    private String serverPort;
+
+    private String serverIp;
+
     @Autowired
     public AuthenticationService(MailSenderService mailSenderService,
                                  UserRepository userRepository,
                                  PasswordEncoder passwordEncoder,
-                                 RoleRepository roleRepository) {
+                                 RoleRepository roleRepository) throws UnknownHostException {
         this.mailSenderService = mailSenderService;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
         this.userFactory = new UserFactory(this);
+
+        serverIp = Inet4Address.getLocalHost().getHostAddress();
     }
 
     public void activateAccount(Long userId, String token, String password) {
@@ -60,7 +70,7 @@ public class AuthenticationService {
         User user = userFactory.createNewUser(usermodel);
         userRepository.save(user);
 
-        RegistrationMailTemplate mail = new RegistrationMailTemplate(user);
+        RegistrationMailTemplate mail = new RegistrationMailTemplate(user, serverPort, serverIp);
         mailSenderService.sendMail(mail);
         log.info("Registered new user: " + user.toString());
     }

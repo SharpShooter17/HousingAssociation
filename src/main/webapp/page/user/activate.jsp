@@ -6,6 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title><spring:message code="header.activate-account"/></title>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
 </head>
 <body>
 <div class="row">
@@ -30,6 +31,11 @@
             <div class="input-field col s12">
                 <form:input path="password" id="password" type="password" cssClass="validate"/>
                 <form:label path="password" for="password"><spring:message code="label.password"/></form:label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <div class="g-recaptcha" data-sitekey="6LfJZMUUAAAAAF6aI5cVbMFnfK5WPbGIm7U78N2D"></div>
             </div>
         </div>
         <button class="btn waves-effect waves-light" type="submit" name="action">

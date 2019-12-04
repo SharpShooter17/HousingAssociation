@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import pl.dmcs.bujazdowski.controller.model.ActivationModel;
 import pl.dmcs.bujazdowski.service.AuthenticationService;
+import pl.dmcs.bujazdowski.service.ReCaptchaService;
 
 import javax.faces.bean.RequestScoped;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestScoped
@@ -18,10 +20,13 @@ import javax.faces.bean.RequestScoped;
 public class ActivationController {
 
     private final AuthenticationService authenticationService;
+    private final ReCaptchaService reCaptchaService;
 
     @Autowired
-    public ActivationController(AuthenticationService authenticationService) {
+    public ActivationController(AuthenticationService authenticationService,
+                                ReCaptchaService reCaptchaService) {
         this.authenticationService = authenticationService;
+        this.reCaptchaService = reCaptchaService;
     }
 
     @RequestMapping(value = "/{token}/{userId}")
@@ -32,14 +37,19 @@ public class ActivationController {
     }
 
     @RequestMapping(value = "/account", method = RequestMethod.POST)
-    public String activateAccount(@ModelAttribute("model") ActivationModel model) {
-        authenticationService.activateAccount(
-                model.getUserId(),
-                model.getToken(),
-                model.getPassword()
-        );
+    public String activateAccount(@ModelAttribute("model") ActivationModel model,
+                                  HttpServletRequest request) {
+        if (reCaptchaService.verify(request.getParameter("g-recaptcha-response"))) {
+            authenticationService.activateAccount(
+                    model.getUserId(),
+                    model.getToken(),
+                    model.getPassword()
+            );
+        } else {
+            return "redirect:/page/user/activate/" + model.getToken() + "/" + model.getUserId();
+        }
 
-        return "redirect:login";
+        return "redirect:/login";
     }
 
 }
