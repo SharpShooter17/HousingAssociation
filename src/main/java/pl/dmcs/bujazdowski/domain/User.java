@@ -1,15 +1,14 @@
 package pl.dmcs.bujazdowski.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import pl.dmcs.bujazdowski.controller.model.UserModel;
 import pl.dmcs.bujazdowski.exception.InvalidTokenException;
 import pl.dmcs.bujazdowski.exception.TokenExpiredException;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.xml.ws.handler.MessageContext;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -47,6 +46,7 @@ public class User
     @Column(name = "TOKEN")
     private String token;
 
+    @JsonIgnore
     @Column(name = "PASSWORD")
     private String hashedPassword;
 
@@ -159,6 +159,7 @@ public class User
     }
 
     @Override
+    @JsonIgnore
     public String getPassword() {
         return this.hashedPassword;
     }
