@@ -66,7 +66,7 @@
 
                 <tbody>
                 <c:if test="${bills.isEmpty()}">
-                    <td colspan="4"><spring:message code="label.no-bills-available"/></td>
+                    <td colspan="5"><spring:message code="label.no-bills-available"/></td>
                 </c:if>
                 <c:forEach items="${bills}" var="bill">
                     <tr>

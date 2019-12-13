@@ -19,24 +19,28 @@
                 <div class="input-field col s12">
                     <form:label path="city"><spring:message code="label.city"/></form:label>
                     <form:input path="city"/>
+                    <form:errors path="city"/>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
                     <form:label path="zipCode"><spring:message code="label.postal-code"/></form:label>
                     <form:input path="zipCode"/>
+                    <form:errors path="zipCode"/>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
                     <form:label path="street"><spring:message code="label.street"/></form:label>
                     <form:input path="street"/>
+                    <form:errors path="street"/>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
                     <form:label path="number"><spring:message code="label.number"/></form:label>
                     <form:input path="number"/>
+                    <form:errors path="number"/>
                 </div>
             </div>
             <div class="row">

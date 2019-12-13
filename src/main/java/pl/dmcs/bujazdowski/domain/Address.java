@@ -3,7 +3,7 @@ package pl.dmcs.bujazdowski.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.io.Serializable;
+import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 @Entity
@@ -11,15 +11,19 @@ import java.util.Objects;
 public class Address
         extends BaseEntity {
 
+    @NotBlank
     @Column(name = "ZIP_CODE", nullable = false)
     private String zipCode;
 
+    @NotBlank
     @Column(name = "STREET", nullable = false)
     private String street;
 
+    @NotBlank
     @Column(name = "NUMBER", nullable = false)
     private String number;
 
+    @NotBlank
     @Column(name = "CITY", nullable = false)
     private String city;
 

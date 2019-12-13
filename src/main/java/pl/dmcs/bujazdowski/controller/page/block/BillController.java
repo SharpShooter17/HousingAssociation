@@ -2,6 +2,8 @@ package pl.dmcs.bujazdowski.controller.page.block;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,7 @@ import pl.dmcs.bujazdowski.service.HousingAssociationService;
 
 import javax.faces.bean.RequestScoped;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -27,6 +30,7 @@ import java.util.Arrays;
 public class BillController {
 
     private final String addPath = "/add";
+    private final String fullAddPage = "/page/block/apartment/bill/add";
 
     private final HousingAssociationService service;
 
@@ -43,7 +47,7 @@ public class BillController {
         bill.setType(BillingType.ELECTRICITY);
         bill.setAmount(0.0);
 
-        ModelAndView modelAndView = new ModelAndView("/page/block/apartment/bill/add");
+        ModelAndView modelAndView = new ModelAndView(fullAddPage);
         modelAndView.addObject("blockId", blockId);
         modelAndView.addObject("apartmentId", apartmentId);
         modelAndView.addObject("bill", bill);
@@ -54,7 +58,17 @@ public class BillController {
     @RequestMapping(value = addPath, method = RequestMethod.POST)
     public String addAction(@PathVariable("blockId") Long blockId,
                             @PathVariable("apartmentId") Long apartmentId,
-                            @ModelAttribute("bill") Bill bill) {
+                            @Valid @ModelAttribute("bill") Bill bill,
+                            BindingResult bindingResult,
+                            Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("blockId", blockId);
+            model.addAttribute("apartmentId", apartmentId);
+            model.addAttribute("bill", bill);
+            model.addAttribute("availableTypes", Arrays.asList(BillingType.values()));
+            return fullAddPage;
+        }
+
         service.addBill(apartmentId, bill);
         return "redirect:/page/block/details/" + blockId + "/apartment/details/" + apartmentId;
     }

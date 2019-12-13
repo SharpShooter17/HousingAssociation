@@ -22,18 +22,21 @@
                 <div class="input-field col s12">
                     <form:select items="${availableTypes}" path="type"/>
                     <label><spring:message code="label.type"/></label>
+                    <form:errors path="type"/>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
                     <form:label path="date"><spring:message code="label.date"/></form:label>
                     <form:input path="date" class="datepicker"/>
+                    <form:errors path="date"/>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
                     <form:label path="amount"><spring:message code="label.amount"/></form:label>
                     <form:input path="amount" type="number" step="0.01"/>
+                    <form:errors path="amount"/>
                 </div>
             </div>
 

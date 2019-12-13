@@ -12,6 +12,7 @@ import pl.dmcs.bujazdowski.domain.Block;
 import pl.dmcs.bujazdowski.service.HousingAssociationService;
 
 import javax.faces.bean.RequestScoped;
+import javax.validation.Valid;
 
 @Controller
 @RequestScoped
@@ -43,7 +44,7 @@ public class BlockController {
     }
 
     @RequestMapping(value = addPath, method = RequestMethod.POST)
-    public String addAction(@ModelAttribute("address") Address address) {
+    public String addAction(@Valid @ModelAttribute("address") Address address) {
         service.addBlock(address);
         return "redirect:" + basePath + listPath;
     }

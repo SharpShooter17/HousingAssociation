@@ -51,7 +51,7 @@ public class ReportService {
         billColumns.add(amountColumn);
     }
 
-    public ByteArrayOutputStream prepareReport(Bill bill) {
+    ByteArrayOutputStream prepareReport(Bill bill) {
         try {
             DynamicReportBuilder drb = new DynamicReportBuilder();
             drb.setDefaultEncoding("UTF-8");

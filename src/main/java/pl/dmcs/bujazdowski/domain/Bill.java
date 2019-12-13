@@ -1,21 +1,25 @@
 package pl.dmcs.bujazdowski.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 import java.time.LocalDate;
-import java.util.Currency;
 
 @Entity
 @Table(name = "BILL_T")
 public class Bill
         extends BaseEntity {
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "TYPE", nullable = false)
     private BillingType type;
 
+    @NotNull
     @Column(name = "DATE", nullable = false)
     private LocalDate date;
 
+    @PositiveOrZero(message = "{error.positive-or-zero}")
     @Column(name = "AMOUNT", nullable = false)
     private Double amount;
 
