@@ -78,7 +78,6 @@ public class HousingAssociationService {
     }
 
     @Transactional
-    @OnlyModerator
     public void addBill(Long apartmentId, Bill bill) {
         Apartment apartment = findApartment(apartmentId);
         bill.setApartment(apartment);
@@ -119,5 +118,9 @@ public class HousingAssociationService {
     public User findUser(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(userId));
+    }
+
+    public List<Apartment> findAllApartments() {
+        return apartmentRepository.findAll();
     }
 }

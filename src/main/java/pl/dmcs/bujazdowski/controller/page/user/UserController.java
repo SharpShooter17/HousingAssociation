@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import pl.dmcs.bujazdowski.controller.model.UserModel;
 import pl.dmcs.bujazdowski.domain.RoleType;
 import pl.dmcs.bujazdowski.domain.User;
-import pl.dmcs.bujazdowski.security.OnlyAdministrator;
 import pl.dmcs.bujazdowski.service.AuthenticationService;
 import pl.dmcs.bujazdowski.service.HousingAssociationService;
 import pl.dmcs.bujazdowski.validator.UserValidator;
@@ -43,6 +42,7 @@ public class UserController {
     }
 
     @RequestMapping(value = listPath)
+    @PreAuthorize("hasAuthority('ADMINISTRATOR') or hasAuthority('MODERATOR')")
     public String list(Model model) {
         model.addAttribute("users", service.findAllUsers());
         return basePath + listPath;

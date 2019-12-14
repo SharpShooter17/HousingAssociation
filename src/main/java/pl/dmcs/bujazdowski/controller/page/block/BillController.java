@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import pl.dmcs.bujazdowski.domain.Bill;
 import pl.dmcs.bujazdowski.domain.BillingType;
 import pl.dmcs.bujazdowski.exception.ApplicationException;
+import pl.dmcs.bujazdowski.security.OnlyModerator;
 import pl.dmcs.bujazdowski.service.HousingAssociationService;
 
 import javax.faces.bean.RequestScoped;
@@ -55,6 +56,7 @@ public class BillController {
         return modelAndView;
     }
 
+    @OnlyModerator
     @RequestMapping(value = addPath, method = RequestMethod.POST)
     public String addAction(@PathVariable("blockId") Long blockId,
                             @PathVariable("apartmentId") Long apartmentId,

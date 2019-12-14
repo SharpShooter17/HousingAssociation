@@ -30,6 +30,16 @@ public class Bill
     public Bill() {
     }
 
+    public Bill(BillingType type,
+                LocalDate date,
+                @PositiveOrZero(message = "{error.positive-or-zero}") Double amount,
+                Apartment apartment) {
+        this.type = type;
+        this.date = date;
+        this.amount = amount;
+        this.apartment = apartment;
+    }
+
     public String displayName() {
         return apartment.displayName();
     }
