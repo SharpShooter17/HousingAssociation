@@ -105,7 +105,7 @@ public class User
         return roles;
     }
 
-    String token() {
+    public String token() {
         return this.token;
     }
 

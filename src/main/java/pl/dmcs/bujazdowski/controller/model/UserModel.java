@@ -21,6 +21,14 @@ public class UserModel implements UserAppI {
     public UserModel() {
     }
 
+    public UserModel(String firstName, String lastName, String email, String telephone, RoleType[] userRoles) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.telephone = telephone;
+        this.userRoles = userRoles;
+    }
+
     public RoleType[] getUserRoles() {
         return userRoles;
     }

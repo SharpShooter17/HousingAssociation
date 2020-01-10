@@ -8,8 +8,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.mail.MailException;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -21,8 +24,10 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import javax.mail.internet.MimeMessage;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import java.io.InputStream;
 import java.util.Properties;
 
 @Configuration
@@ -80,7 +85,47 @@ public class ConfigTest {
 
     @Bean
     public JavaMailSender javaMailSender() {
-        return new JavaMailSenderImpl();
+        return new JavaMailSender() {
+            @Override
+            public void send(SimpleMailMessage simpleMailMessage) throws MailException {
+
+            }
+
+            @Override
+            public void send(SimpleMailMessage... simpleMailMessages) throws MailException {
+
+            }
+
+            @Override
+            public MimeMessage createMimeMessage() {
+                return null;
+            }
+
+            @Override
+            public MimeMessage createMimeMessage(InputStream inputStream) throws MailException {
+                return null;
+            }
+
+            @Override
+            public void send(MimeMessage mimeMessage) throws MailException {
+
+            }
+
+            @Override
+            public void send(MimeMessage... mimeMessages) throws MailException {
+
+            }
+
+            @Override
+            public void send(MimeMessagePreparator mimeMessagePreparator) throws MailException {
+
+            }
+
+            @Override
+            public void send(MimeMessagePreparator... mimeMessagePreparators) throws MailException {
+
+            }
+        };
     }
 
     @Bean
