@@ -119,7 +119,7 @@ public class AuthenticationService {
     @Transactional
     @OnlyAdministrator
     public void remove(Long userId) {
-        userRepository.delete(userId);
+        userRepository.delete(findUser(userId));
     }
 
     public void mapUser(UserAppI from, UserAppI to) {
