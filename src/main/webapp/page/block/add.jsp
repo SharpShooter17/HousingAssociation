@@ -18,33 +18,34 @@
             <div class="row">
                 <div class="input-field col s12">
                     <form:label path="city"><spring:message code="label.city"/></form:label>
-                    <form:input path="city"/>
+                    <form:input path="city" id="input-city"/>
                     <form:errors path="city"/>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
                     <form:label path="zipCode"><spring:message code="label.postal-code"/></form:label>
-                    <form:input path="zipCode"/>
+                    <form:input path="zipCode" id="input-zip-code"/>
                     <form:errors path="zipCode"/>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
                     <form:label path="street"><spring:message code="label.street"/></form:label>
-                    <form:input path="street"/>
+                    <form:input path="street" id="input-street"/>
                     <form:errors path="street"/>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
                     <form:label path="number"><spring:message code="label.number"/></form:label>
-                    <form:input path="number"/>
+                    <form:input path="number" id="input-number"/>
                     <form:errors path="number"/>
                 </div>
             </div>
             <div class="row">
-                <button class="btn waves-effect waves-light" type="submit"><spring:message code="button.add-block"/>
+                <button class="btn waves-effect waves-light" type="submit" id="submit-add-block">
+                    <spring:message code="button.add-block"/>
                     <i class="material-icons right">send</i>
                 </button>
             </div>

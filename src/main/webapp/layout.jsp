@@ -34,17 +34,17 @@
 
 <ul id="dropdownMenu" class="dropdown-content">
     <sec:authorize access="hasAnyAuthority('ADMINISTRATOR', 'MODERATOR')">
-        <li><a href="/page/user/list"><spring:message code="menu.users"/></a></li>
+        <li id="menu-user-list"><a href="/page/user/list"><spring:message code="menu.users"/></a></li>
     </sec:authorize>
     <sec:authorize access="hasAuthority('ADMINISTRATOR')">
-        <li><a href="/page/user/register"><spring:message code="menu.register-user"/></a></li>
+        <li id="menu-register"><a href="/page/user/register"><spring:message code="menu.register-user"/></a></li>
     </sec:authorize>
     <li class="divider"></li>
     <sec:authorize access="hasAnyAuthority('ADMINISTRATOR', 'MODERATOR')">
-        <li><a href="/page/block/list"><spring:message code="menu.blocks"/></a></li>
+        <li id="menu-block-list"><a href="/page/block/list"><spring:message code="menu.blocks"/></a></li>
     </sec:authorize>
     <sec:authorize access="hasAuthority('ADMINISTRATOR')">
-        <li><a href="/page/block/add"><spring:message code="menu.add-block"/></a></li>
+        <li id="menu-add-block"><a href="/page/block/add"><spring:message code="menu.add-block"/></a></li>
     </sec:authorize>
 </ul>
 <nav class="light-blue lighten-1" role="navigation">
@@ -56,7 +56,7 @@
 
                 <sec:authorize access="hasAnyAuthority('ADMINISTRATOR', 'MODERATOR')">
                     <li>
-                        <a class="dropdown-trigger" href="#!" data-target="dropdownMenu">
+                        <a class="dropdown-trigger" href="#!" data-target="dropdownMenu" id="menu">
                             <spring:message code="menu.menu"/>
                             <i class="material-icons right">arrow_drop_down</i>
                         </a>
