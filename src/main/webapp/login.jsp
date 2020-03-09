@@ -43,7 +43,8 @@
                     <label for="password"><spring:message code="label.password"/></label>
                 </div>
             </div>
-            <button class="btn waves-effect waves-light" type="submit"><spring:message code="button.login"/>
+            <button class="btn waves-effect waves-light" type="submit" id="login-submit">
+                <spring:message code="button.login"/>
                 <i class="material-icons right">send</i>
             </button>
         </form>
