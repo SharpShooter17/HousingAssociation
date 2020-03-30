@@ -81,7 +81,6 @@ public class BlockTest extends AbstractSeleniumTest {
         By occupantEmailElement = By.xpath("//*[contains(text(),'" + OCCUPANT_EMAIL + "')]");
         new WebDriverWait(driver, 5)
                 .until(ExpectedConditions.elementToBeClickable(occupantEmailElement));
-
         driver.findElement(By.xpath("//form//*[contains(text(), '" + OCCUPANT_EMAIL + "')]")).click();
         driver.findElement(By.id("save-occupants")).click();
 
@@ -92,6 +91,30 @@ public class BlockTest extends AbstractSeleniumTest {
         assertTrue(
                 driver.findElement(occupantEmailElement).isDisplayed(),
                 "User should be redirected to apartment details page with occupants list");
+    }
+
+    @Test
+    @Order(30)
+    public void addBill() {
+        By addBill = By.id("add-bill");
+        new WebDriverWait(driver, 5)
+                .until(ExpectedConditions.elementToBeClickable(addBill));
+        driver.findElement(addBill).click();
+
+        By saveBill = By.id("save-bill");
+        new WebDriverWait(driver, 5)
+                .until(ExpectedConditions.elementToBeClickable(saveBill));
+        driver.findElement(saveBill).click();
+
+        By billElement = By.xpath("//*[text()='ELECTRICITY']");
+        new WebDriverWait(driver, 5)
+                .until(ExpectedConditions.presenceOfElementLocated(billElement));
+
+        assertTrue(
+                driver.findElement(billElement).isDisplayed(),
+                "User should be redirected to apartment details page with bill list"
+        );
+
     }
 
 }

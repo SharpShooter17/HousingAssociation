@@ -41,7 +41,7 @@
             </div>
 
             <div class="row">
-                <button class="btn waves-effect waves-light" type="submit"><spring:message code="button.add-bill"/>
+                <button class="btn waves-effect waves-light" type="submit" id="save-bill"><spring:message code="button.add-bill"/>
                     <i class="material-icons right">send</i>
                 </button>
             </div>

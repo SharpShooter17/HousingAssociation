@@ -23,7 +23,7 @@
     <div class="col s6">
         <h3>
             <spring:message code="header.bills"/>
-            <a href="/page/block/details/${apartment.block.id}/apartment/details/${apartment.id}/bill/add"
+            <a id="add-bill" href="/page/block/details/${apartment.block.id}/apartment/details/${apartment.id}/bill/add"
                class="btn-floating btn-small waves-effect waves-light red">
                 <i class="material-icons">add</i>
             </a>
