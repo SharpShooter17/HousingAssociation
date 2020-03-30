@@ -25,7 +25,7 @@
     <div class="col s12">
         <h3>
             <spring:message code="label.apartments"/>
-            <a href="/page/block/details/${block.id}/apartment/add"
+            <a id="add-apartment" href="/page/block/details/${block.id}/apartment/add"
                class="btn-floating btn-small waves-effect waves-light red">
                 <i class="material-icons">add</i>
             </a>
