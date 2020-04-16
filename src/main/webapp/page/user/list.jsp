@@ -13,7 +13,7 @@
 <div class="row">
     <div class="col s12">
         <h3><spring:message code="header.users"/></h3>
-        <table class="striped centered responsive-table">
+        <table id="userListTable" class="striped centered responsive-table">
             <thead>
             <tr>
                 <th><spring:message code="label.name"/></th>

@@ -106,7 +106,7 @@ public class UserController {
         return "/page/user/edit";
     }
 
-    @RequestMapping(value = removePath + "/{userId}", method = RequestMethod.POST)
+    @RequestMapping(value = removePath + "/{userId}", method = RequestMethod.GET)
     public String editAction(@PathVariable("userId") Long userId) {
         authenticationService.remove(userId);
         return "redirect:" + basePath + listPath;

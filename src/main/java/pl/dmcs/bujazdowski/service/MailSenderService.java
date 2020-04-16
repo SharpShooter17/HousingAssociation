@@ -23,7 +23,7 @@ public class MailSenderService {
         mailMessage.setSubject(mailTemplate.subject());
         mailMessage.setText(mailTemplate.emailBody());
 
-        emailSender.send(mailMessage);
+        //emailSender.send(mailMessage);
     }
 
 }
