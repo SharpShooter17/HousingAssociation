@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class LoginTest extends AbstractSeleniumTest {
 
     @Test
-    public void login() {
+    public void shouldLogin() {
         WebDriver driver = loginAsAdmin();
 
         assertTrue(

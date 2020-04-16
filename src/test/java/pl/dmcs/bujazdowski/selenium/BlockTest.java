@@ -32,7 +32,7 @@ public class BlockTest extends AbstractSeleniumTest {
 
     @Test
     @Order(0)
-    public void addBlock() {
+    public void shouldAddBlock() {
         driver.navigate().to(BASE_URL + "/page/block/add");
         driver.findElement(By.id("input-city")).sendKeys("Selenium Test");
         driver.findElement(By.id("input-zip-code")).sendKeys(ZIP_CODE);
@@ -53,7 +53,7 @@ public class BlockTest extends AbstractSeleniumTest {
 
     @Test
     @Order(10)
-    public void addApartment() {
+    public void shouldAddApartment() {
         driver.findElement(By.xpath("//*[text()='" + BLOCK_NAME + "']")).click();
         driver.findElement(By.id("add-apartment")).click();
         driver.findElement(By.id("submit-apartment")).submit();
@@ -70,7 +70,7 @@ public class BlockTest extends AbstractSeleniumTest {
 
     @Test
     @Order(20)
-    public void addOccupants() {
+    public void shouldAddOccupants() {
         driver.findElement(By.xpath("//*[contains(text(),'" + APARTMENT_NAME + "')]")).click();
 
         By addOccupant = By.id("add-occupant");
@@ -95,7 +95,7 @@ public class BlockTest extends AbstractSeleniumTest {
 
     @Test
     @Order(30)
-    public void addBill() {
+    public void shouldAddBill() {
         By addBill = By.id("add-bill");
         new WebDriverWait(driver, 5)
                 .until(ExpectedConditions.elementToBeClickable(addBill));

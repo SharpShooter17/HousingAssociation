@@ -22,7 +22,7 @@ public abstract class AbstractSeleniumTest {
         driver.findElement(By.id("password"))
                 .sendKeys("password");
 
-        driver.findElement(By.id("login-submit")).submit();
+        driver.findElement(By.id("shouldLogin-submit")).submit();
 
         WebDriverWait wait = new WebDriverWait(driver, 5);
         wait.until(ExpectedConditions.urlContains("/home"));
