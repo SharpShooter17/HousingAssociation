@@ -77,7 +77,7 @@ public class UserTests extends AbstractSeleniumTest {
         }
 
         @Test
-        public void userShouldBeEdited() throws InterruptedException {
+        public void userShouldBeEdited() {
             driver.findElement(By.id("menu")).click();
             driver.findElement(By.id("menu-user-list")).click();
 

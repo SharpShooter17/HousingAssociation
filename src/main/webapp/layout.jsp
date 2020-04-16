@@ -49,7 +49,9 @@
 </ul>
 <nav class="light-blue lighten-1" role="navigation">
     <div class="nav-wrapper container">
-        <a id="logo-container" href="/page/home" class="brand-logo"><spring:message code="page.title"/></a>
+        <a id="logo-container" href="/page/home" class="brand-logo">
+            <span id="pageTitle"><spring:message code="page.title"/></span>
+        </a>
 
         <ul class="right hide-on-med-and-down">
             <sec:authorize access="isAuthenticated()">
@@ -69,8 +71,8 @@
                     <a href="javascript:logout()"><spring:message code="label.logout"/></a>
                 </li>
             </sec:authorize>
-            <li><a href="?lang=pl">PL</a></li>
-            <li><a href="?lang=en">EN</a></li>
+            <li><a href="?lang=pl" id="langPL">PL</a></li>
+            <li><a href="?lang=en" id="langEN">EN</a></li>
         </ul>
     </div>
 </nav>
