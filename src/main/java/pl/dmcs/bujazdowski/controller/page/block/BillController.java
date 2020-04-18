@@ -19,7 +19,6 @@ import javax.faces.bean.RequestScoped;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
@@ -31,6 +30,7 @@ import java.util.Arrays;
 public class BillController {
 
     private final String addPath = "/add";
+
     private final String fullAddPage = "/page/block/apartment/bill/add";
 
     private final HousingAssociationService service;
@@ -63,7 +63,7 @@ public class BillController {
                             @Valid @ModelAttribute("bill") Bill bill,
                             BindingResult bindingResult,
                             Model model) {
-        if (bindingResult.hasErrors()) {
+        if ( bindingResult.hasErrors() ) {
             model.addAttribute("blockId", blockId);
             model.addAttribute("apartmentId", apartmentId);
             model.addAttribute("bill", bill);
@@ -75,12 +75,12 @@ public class BillController {
         return "redirect:/page/block/details/" + blockId + "/apartment/details/" + apartmentId;
     }
 
-    @RequestMapping(value = "/download/{billId}")
+    @RequestMapping(value = "/download/{billId}.pdf")
     public void download(@PathVariable("billId") Long billId,
                          HttpServletResponse response) {
-        ByteArrayOutputStream file = service.downloadBillReport(billId);
+        byte[] file = service.downloadBillReport(billId);
         try {
-            InputStream inputStream = new ByteArrayInputStream(file.toByteArray());
+            InputStream inputStream = new ByteArrayInputStream(file);
             response.setContentType("application/pdf");
             org.apache.commons.io.IOUtils.copy(inputStream, response.getOutputStream());
             response.flushBuffer();
@@ -88,4 +88,5 @@ public class BillController {
             throw new ApplicationException("IOError writing file to output stream");
         }
     }
+
 }

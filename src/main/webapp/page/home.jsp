@@ -53,7 +53,7 @@
         </div>
         <div class="col s6">
             <h3><spring:message code="header.yours-bills"/></h3>
-            <table class="striped centered responsive-table">
+            <table class="striped centered responsive-table" id="yours-bills-table">
                 <thead>
                 <tr>
                     <th><spring:message code="label.address"/></th>
@@ -75,7 +75,7 @@
                         <td>${bill.date}</td>
                         <td>${bill.amount}</td>
                         <td>
-                            <a href="/page/block/details/${bill.apartment.block.id}/apartment/details/${bill.apartment.id}/bill/download/${bill.id}">
+                            <a href="/page/block/details/${bill.apartment.block.id}/apartment/details/${bill.apartment.id}/bill/download/${bill.id}.pdf">
                                 <spring:message code="label.download"/>
                             </a>
                         </td>

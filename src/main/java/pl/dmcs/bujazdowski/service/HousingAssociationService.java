@@ -14,7 +14,6 @@ import pl.dmcs.bujazdowski.security.OnlyAdministrator;
 import pl.dmcs.bujazdowski.security.OnlyModerator;
 
 import javax.transaction.Transactional;
-import java.io.ByteArrayOutputStream;
 import java.util.List;
 import java.util.Set;
 
@@ -100,15 +99,15 @@ public class HousingAssociationService {
     }
 
     @Transactional
-    public ByteArrayOutputStream downloadBillReport(Long billId) {
-        User user = authenticationService.currentUser();
+    public byte[] downloadBillReport(Long billId) {
+        /*User user = authenticationService.currentUser();
         Set<Apartment> userApartments = apartmentRepository.findAllByOccupantsContaining(user);
         Bill bill = userApartments.stream()
                 .flatMap(apartment -> apartment.getBills().stream())
                 .filter(b -> b.getId().equals(billId))
                 .findFirst()
-                .orElseThrow(() -> new AuthorizationException(user));
-        return reportService.prepareReport(bill);
+                .orElseThrow(() -> new AuthorizationException(user));*/
+        return reportService.prepareReport(billRepository.findById(billId).get());
     }
 
     public List<User> findAllUsers() {

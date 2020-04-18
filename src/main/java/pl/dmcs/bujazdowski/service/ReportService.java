@@ -23,7 +23,6 @@ import pl.dmcs.bujazdowski.domain.Bill;
 import pl.dmcs.bujazdowski.domain.report.Column;
 import pl.dmcs.bujazdowski.exception.ApplicationException;
 
-import java.io.ByteArrayOutputStream;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -51,7 +50,7 @@ public class ReportService {
         billColumns.add(amountColumn);
     }
 
-    ByteArrayOutputStream prepareReport(Bill bill) {
+    byte[] prepareReport(Bill bill) {
         try {
             DynamicReportBuilder drb = new DynamicReportBuilder();
             drb.setDefaultEncoding("UTF-8");
@@ -65,18 +64,19 @@ public class ReportService {
             drb.setDefaultStyles(buildTitleStyle(), buildSubtitle(), buildHeaderColumnStyle(), buildColumnStyle());
 
             drb.setTitle(message("report.header") + ": " + bill.getApartment().displayName());
+            drb.setReportName(bill.displayName());
+
+            drb.setTopMargin(5);
 
             billColumns.forEach(column -> drb.addColumn(prepareColumn(column)));
             List<Map<String, Object>> dataSource = prepareValues(bill);
 
             DynamicReport dr = drb.build();
+
             JRDataSource ds = new JRBeanCollectionDataSource(dataSource);
             Map<String, Object> parameters = new HashMap<>();
             JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds, parameters);
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            JasperExportManager.exportReportToPdfStream(jp, byteArrayOutputStream);
-            byteArrayOutputStream.close();
-            return byteArrayOutputStream;
+            return JasperExportManager.exportReportToPdf(jp);
         } catch (Exception e) {
             throw new ApplicationException(e);
         }

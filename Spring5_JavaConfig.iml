@@ -164,5 +164,8 @@
     <orderEntry type="library" name="Maven: com.squareup.okhttp3:okhttp:3.11.0" level="project" />
     <orderEntry type="library" name="Maven: com.squareup.okio:okio:1.14.0" level="project" />
     <orderEntry type="library" name="Maven: org.seleniumhq.selenium:selenium-firefox-driver:3.141.59" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.pdfbox:pdfbox:1.8.8" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.pdfbox:fontbox:1.8.8" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.pdfbox:jempbox:1.8.8" level="project" />
   </component>
 </module>

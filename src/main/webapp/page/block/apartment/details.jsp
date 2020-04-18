@@ -48,7 +48,7 @@
                     <td>${bill.date}</td>
                     <td>${bill.amount}</td>
                     <td>
-                        <a href="/page/block/details/${apartment.block.id}/apartment/details/${apartment.id}/bill/download/${bill.id}">
+                        <a href="/page/block/details/${apartment.block.id}/apartment/details/${apartment.id}/bill/download/${bill.id}.pdf">
                             <spring:message code="label.download"/>
                         </a>
                     </td>
